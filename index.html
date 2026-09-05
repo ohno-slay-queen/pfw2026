@@ -1,680 +1,2144 @@
 <!DOCTYPE html>
+
 <html lang="th">
+
 <head>
-  <meta charset="UTF-8" />
+
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  />
+  >
 
-  <title>Random X Reply</title>
+  <title>X Reply Randomizer</title>
+
+
+  <!--
+    X Web Intent
+  -->
+  <script
+    async
+    src="https://platform.twitter.com/widgets.js">
+  </script>
+
 
   <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
+
+      margin: 0;
+
+      min-height: 100vh;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      background: #f4f4f4;
+
+      color: #111;
+
     }
 
-    h1 {
-      margin-bottom: 25px;
-    }
 
-    select {
+    .container {
+
       width: 100%;
-      padding: 12px;
+
+      max-width: 700px;
+
+      margin: 0 auto;
+
+      padding:
+        24px
+        16px
+        60px;
+
+    }
+
+
+    /* =========================================
+       HEADER
+    ========================================= */
+
+    .header {
+
+      text-align: center;
+
+      margin-bottom: 24px;
+
+    }
+
+
+    .header h1 {
+
+      margin: 0;
+
+      font-size: 26px;
+
+    }
+
+
+    /* =========================================
+       TOPIC
+    ========================================= */
+
+    .topic-section {
+
+      margin-bottom: 24px;
+
+    }
+
+
+    .topic-label {
+
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+    }
+
+
+    #topicSelect {
+
+      width: 100%;
+
+      padding: 14px 16px;
+
+      border:
+        1px solid #ddd;
+
+      border-radius: 14px;
+
+      background: #fff;
+
       font-size: 16px;
+
+      outline: none;
+
+    }
+
+
+    /* =========================================
+       TWEET LIST
+    ========================================= */
+
+    #tweetList {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 18px;
+
+    }
+
+
+    .empty {
+
+      padding: 30px 20px;
+
+      background: white;
+
+      border-radius: 20px;
+
+      text-align: center;
+
+      color: #888;
+
+    }
+
+
+    /* =========================================
+       TWEET CARD
+    ========================================= */
+
+    .tweet-card {
+
+      background: white;
+
+      padding:
+        24px
+        20px;
+
+      border-radius: 22px;
+
+      box-shadow:
+        0 5px 20px
+        rgba(0, 0, 0, 0.06);
+
+      text-align: center;
+
+    }
+
+
+    /* =========================================
+       ACCOUNT
+    ========================================= */
+
+    .account-name {
+
+      font-size: 22px;
+
+      font-weight: 700;
+
       margin-bottom: 20px;
+
     }
 
-    button {
-      border: none;
-      border-radius: 8px;
-      padding: 12px 18px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 5px;
-    }
 
-    #randomBtn {
-      width: 100%;
-      font-size: 18px;
-    }
+    /* =========================================
+       MESSAGE
+    ========================================= */
 
-    #replyBtn {
-      background: #000;
-      color: white;
-    }
+    .message-box {
 
-    #usedBtn {
-      background: #198754;
-      color: white;
-    }
+      min-height: 120px;
 
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+      display: flex;
 
-    #message {
-      margin: 25px 0;
+      align-items: center;
+
+      justify-content: center;
+
       padding: 20px;
-      background: #f5f5f5;
-      border-radius: 10px;
-      font-size: 20px;
-      text-align: center;
-      min-height: 30px;
+
+      background: #f6f6f6;
+
+      border-radius: 18px;
+
+      font-size: 19px;
+
+      line-height: 1.55;
+
+      white-space: pre-wrap;
+
+      word-break: break-word;
+
+      margin-bottom: 14px;
+
     }
 
-    #count {
-      text-align: center;
-      color: #666;
-      margin-bottom: 15px;
+
+    /* =========================================
+       RANDOM BUTTON
+    ========================================= */
+
+    .random-btn {
+
+      width: 100%;
+
+      min-height: 48px;
+
+      border: none;
+
+      border-radius: 999px;
+
+      background: #111;
+
+      color: #fff;
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
     }
 
-    #actions {
-      text-align: center;
+
+    .random-btn:disabled {
+
+      background: #aaa;
+
+      cursor: not-allowed;
+
     }
 
-    #status {
-      text-align: center;
-      margin-top: 15px;
-      font-weight: bold;
+
+    /* =========================================
+       USE BUTTON
+    ========================================= */
+
+    .use-btn {
+
+      width: 100%;
+
+      min-height: 48px;
+
+      margin-top: 10px;
+
+      border: none;
+
+      border-radius: 999px;
+
+      background: #16a34a;
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
     }
+
+
+    .use-btn:disabled {
+
+      background: #aaa;
+
+      cursor: not-allowed;
+
+    }
+
+
+    /* =========================================
+       REPLY BUTTON
+    ========================================= */
+
+    .reply-btn {
+
+      width: 100%;
+
+      min-height: 48px;
+
+      margin-top: 10px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 999px;
+
+      background: #1d9bf0;
+
+      color: white;
+
+      text-decoration: none;
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+    }
+
+
+    .reply-btn.disabled {
+
+      opacity: 0.45;
+
+      pointer-events: none;
+
+    }
+
+
+    /* =========================================
+       COUNTER
+    ========================================= */
+
+    .remaining {
+
+      margin-top: 18px;
+
+      color: #777;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+    }
+
+
+    /* =========================================
+       MASKED TWEET ID
+    ========================================= */
+
+    .tweet-id {
+
+      margin-top: 7px;
+
+      color: #aaa;
+
+      font-size: 10px;
+
+      letter-spacing: 0.3px;
+
+      font-weight: 400;
+
+    }
+
+
+    /* =========================================
+       USED STATUS
+    ========================================= */
+
+    .status {
+
+      margin-top: 10px;
+
+      font-size: 13px;
+
+      color: #777;
+
+      min-height: 18px;
+
+    }
+
+
+    /* =========================================
+       LOADING
+    ========================================= */
+
+    .loading {
+
+      padding: 20px;
+
+      text-align: center;
+
+      color: #777;
+
+    }
+
+
+    /* =========================================
+       ERROR
+    ========================================= */
+
+    .error {
+
+      display: none;
+
+      margin-bottom: 20px;
+
+      padding: 14px;
+
+      border-radius: 12px;
+
+      background: #fee2e2;
+
+      color: #991b1b;
+
+      font-size: 14px;
+
+    }
+
+
+    @media (
+      max-width: 480px
+    ) {
+
+      .container {
+
+        padding:
+          18px
+          12px
+          50px;
+
+      }
+
+
+      .tweet-card {
+
+        padding:
+          22px
+          16px;
+
+      }
+
+
+      .message-box {
+
+        font-size: 18px;
+
+      }
+
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <h1>🎲 Random X Reply</h1>
 
-  <select id="tweetSelect">
-    <option value="">-- เลือก Tweet --</option>
-  </select>
+<div class="container">
 
-  <button id="randomBtn">
-    🎲 สุ่มข้อความ
-  </button>
 
-  <div id="message">
-    ยังไม่ได้สุ่มข้อความ
-  </div>
+  <!-- =======================================
+       HEADER
+  ======================================== -->
 
-  <div id="count">
-    -
-  </div>
+  <div class="header">
 
-  <div id="actions">
-
-    <button
-      id="replyBtn"
-      disabled
-    >
-      Reply on X
-    </button>
-
-    <button
-      id="usedBtn"
-      disabled
-    >
-      ✓ ใช้ข้อความนี้
-    </button>
+    <h1>
+      X Reply
+    </h1>
 
   </div>
 
-  <div id="status"></div>
+
+  <!-- =======================================
+       ERROR
+  ======================================== -->
+
+  <div
+    id="error"
+    class="error">
+  </div>
+
+
+  <!-- =======================================
+       TOPIC SELECT
+  ======================================== -->
+
+  <div class="topic-section">
+
+    <label
+      class="topic-label"
+      for="topicSelect">
+
+      เลือก Topic
+
+    </label>
+
+
+    <select
+      id="topicSelect">
+
+      <option value="">
+
+        -- เลือก Topic --
+
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <!-- =======================================
+       TWEET LIST
+  ======================================== -->
+
+  <div id="tweetList">
+
+    <div class="empty">
+
+      กรุณาเลือก Topic
+
+    </div>
+
+  </div>
+
+
+  <!-- =======================================
+       LOADING
+  ======================================== -->
+
+  <div
+    id="loading"
+    class="loading">
+
+    กำลังโหลดข้อมูล...
+
+  </div>
+
+
+</div>
 
 
 <script>
 
-/* =====================================================
+
+/* =========================================================
    CONFIG
-===================================================== */
+========================================================= */
+
+
+/*
+ * Google Sheet MAIN
+ *
+ * เอา URL CSV ของ main มาใส่
+ *
+ * ตัวอย่าง:
+ *
+ * https://docs.google.com/spreadsheets/d/XXXXX/
+ * pub?gid=0&single=true&output=csv
+ */
 
 const MAIN_CSV_URL =
-  "ใส่ URL CSV ของ main ตรงนี้";
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-CnwPK2fSRjsBrmWn3XVIXZEbDFPGguJQeco7B4nNv-7YOcxmIk0ge1846CC5OB8o3sqWK7TwIo_a/pub?output=csv";
+
+
+/*
+ * Google Spreadsheet ID
+ *
+ * จาก URL:
+ *
+ * https://docs.google.com/spreadsheets/d/
+ * 1ABCXYZ123456/edit
+ *
+ * เอาเฉพาะ:
+ *
+ * 1ABCXYZ123456
+ */
 
 const SPREADSHEET_ID =
-  "ใส่ Spreadsheet ID ตรงนี้";
+  "1RJ7OzLLgvMSKdVTxVfKOqQXir7vXIIyWpa_gImp1PzM";
 
 
-/* Supabase */
+/*
+ * Supabase URL
+ *
+ * สำคัญ:
+ *
+ * ใส่เฉพาะ:
+ *
+ * https://xxxxx.supabase.co
+ *
+ * ไม่ใส่ /rest/v1
+ */
 
 const SUPABASE_URL =
   "https://romrjbyaqckrpvobbzkw.supabase.co";
 
-const SUPABASE_ANON_KEY =
+
+/*
+ * Supabase Publishable Key
+ *
+ * หรือ legacy anon key
+ *
+ * ห้ามใช้ secret/service_role
+ */
+
+const SUPABASE_KEY =
   "sb_publishable_4DN0Penjs0vuTYzVdY4-Ug_AmsxurCE";
 
 
-/* =====================================================
+
+/* =========================================================
    DOM
-===================================================== */
+========================================================= */
 
-const tweetSelect =
-  document.getElementById("tweetSelect");
-
-const randomBtn =
-  document.getElementById("randomBtn");
-
-const messageBox =
-  document.getElementById("message");
-
-const countBox =
-  document.getElementById("count");
-
-const replyBtn =
-  document.getElementById("replyBtn");
-
-const usedBtn =
-  document.getElementById("usedBtn");
-
-const statusBox =
-  document.getElementById("status");
+const topicSelect =
+  document.getElementById(
+    "topicSelect"
+  );
 
 
-/* =====================================================
+const tweetList =
+  document.getElementById(
+    "tweetList"
+  );
+
+
+const loading =
+  document.getElementById(
+    "loading"
+  );
+
+
+const errorBox =
+  document.getElementById(
+    "error"
+  );
+
+
+
+/* =========================================================
    STATE
-===================================================== */
+========================================================= */
 
 let mainRows = [];
 
-let currentRows = [];
-
-let currentTweetId = null;
-
-let currentMessage = null;
+let selectedTopic = "";
 
 
-/* =====================================================
+/*
+ * cache message ของแต่ละ Tweet
+ *
+ * key:
+ * tweet_id
+ *
+ * value:
+ * {
+ *   totalCount,
+ *   messages
+ * }
+ */
+
+const messageCache =
+  new Map();
+
+
+
+/* =========================================================
    INIT
-===================================================== */
+========================================================= */
 
-loadMain();
+init();
 
 
-/* =====================================================
-   LOAD MAIN SHEET
-===================================================== */
-
-async function loadMain() {
+async function init() {
 
   try {
 
-    setStatus("กำลังโหลด Tweet...");
+    await loadMain();
 
-    const response = await fetch(
-      MAIN_CSV_URL + "&t=" + Date.now()
-    );
+    buildTopics();
 
-    if (!response.ok) {
-      throw new Error(
-        "โหลด main sheet ไม่สำเร็จ"
-      );
-    }
+    loading.style.display =
+      "none";
 
-    const csvText =
-      await response.text();
+  }
 
-    mainRows =
-      parseCSV(csvText);
-
-    validateMainSheet();
-
-    renderTweetOptions();
-
-    setStatus("");
-
-  } catch (error) {
+  catch (error) {
 
     console.error(error);
 
-    setStatus(
-      "❌ โหลดข้อมูลไม่สำเร็จ"
+    loading.style.display =
+      "none";
+
+    showError(
+      error.message
     );
+
   }
+
 }
 
 
-/* =====================================================
-   RENDER TWEET OPTIONS
-===================================================== */
 
-function renderTweetOptions() {
+/* =========================================================
+   LOAD MAIN
+========================================================= */
 
-  tweetSelect.innerHTML =
-    `<option value="">
-      -- เลือก Tweet --
-    </option>`;
+async function loadMain() {
 
-  mainRows.forEach(row => {
+  const url =
+    addCacheBuster(
+      MAIN_CSV_URL
+    );
 
-    const topic =
-      row.Topic || "";
 
-    const account =
-      row.Acc_name || "";
+  const response =
+    await fetch(url);
 
-    const tweetId =
-      row.tweet_id || "";
 
-    if (!tweetId) {
-      return;
+  if (!response.ok) {
+
+    throw new Error(
+      "โหลด main ไม่สำเร็จ"
+    );
+
+  }
+
+
+  const csv =
+    await response.text();
+
+
+  mainRows =
+    csvToObjects(csv);
+
+
+  if (
+    !mainRows.length
+  ) {
+
+    throw new Error(
+      "main ไม่มีข้อมูล"
+    );
+
+  }
+
+
+  /*
+   * ตรวจ column
+   */
+
+  const requiredColumns = [
+    "Topic",
+    "acc_name",
+    "link_post",
+    "tweet_id"
+  ];
+
+
+  for (
+    const column
+    of requiredColumns
+  ) {
+
+    if (
+      !(column in mainRows[0])
+    ) {
+
+      throw new Error(
+        `main ไม่มี column: ${column}`
+      );
+
     }
 
-    const option =
-      document.createElement("option");
+  }
 
-    option.value =
-      tweetId;
-
-    option.textContent =
-      `${topic} — @${account}`;
-
-    tweetSelect.appendChild(option);
-
-  });
 }
 
 
-/* =====================================================
-   SELECT TWEET
-===================================================== */
 
-tweetSelect.addEventListener(
-  "change",
-  async () => {
+/* =========================================================
+   BUILD TOPICS
+========================================================= */
 
-    const tweetId =
-      tweetSelect.value;
+function buildTopics() {
 
-    if (!tweetId) {
+  const topics =
+    [
+      ...new Set(
+        mainRows
+          .map(row =>
+            row.Topic.trim()
+          )
+          .filter(Boolean)
+      )
+    ];
 
-      reset();
 
-      return;
-    }
+  topics.sort();
 
-    currentTweetId =
-      tweetId;
 
-    currentMessage =
-      null;
+  topics.forEach(
+    topic => {
 
-    replyBtn.disabled =
-      true;
-
-    usedBtn.disabled =
-      true;
-
-    messageBox.textContent =
-      "กำลังโหลดข้อความ...";
-
-    try {
-
-      currentRows =
-        await loadMessageSheet(
-          tweetId
+      const option =
+        document.createElement(
+          "option"
         );
 
-      await updateCount();
 
-      messageBox.textContent =
-        "กด 🎲 เพื่อสุ่มข้อความ";
+      option.value =
+        topic;
 
-      setStatus("");
 
-    } catch (error) {
+      option.textContent =
+        topic;
 
-      console.error(error);
 
-      messageBox.textContent =
-        "❌ โหลดข้อความไม่สำเร็จ";
-
-      setStatus(
-        error.message
+      topicSelect.appendChild(
+        option
       );
+
     }
+  );
+
+}
+
+
+
+/* =========================================================
+   TOPIC CHANGE
+========================================================= */
+
+topicSelect.addEventListener(
+  "change",
+  () => {
+
+    selectedTopic =
+      topicSelect.value;
+
+
+    if (
+      !selectedTopic
+    ) {
+
+      tweetList.innerHTML = `
+        <div class="empty">
+          กรุณาเลือก Topic
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    renderTweetCards();
+
   }
 );
 
 
-/* =====================================================
+
+/* =========================================================
+   RENDER TWEET CARDS
+========================================================= */
+
+function renderTweetCards() {
+
+  tweetList.innerHTML = "";
+
+
+  /*
+   * filter Topic
+   */
+
+  const topicRows =
+    mainRows.filter(
+      row =>
+        row.Topic.trim() ===
+        selectedTopic
+    );
+
+
+  /*
+   * Tweet ID ไม่ซ้ำ
+   */
+
+  const uniqueTweets =
+    new Map();
+
+
+  topicRows.forEach(
+    row => {
+
+      const tweetId =
+        row.tweet_id.trim();
+
+
+      if (!tweetId) {
+        return;
+      }
+
+
+      if (
+        !uniqueTweets.has(
+          tweetId
+        )
+      ) {
+
+        uniqueTweets.set(
+          tweetId,
+          row
+        );
+
+      }
+
+    }
+  );
+
+
+  /*
+   * ไม่มี Tweet
+   */
+
+  if (
+    uniqueTweets.size === 0
+  ) {
+
+    tweetList.innerHTML = `
+      <div class="empty">
+        ไม่พบ Tweet ใน Topic นี้
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  /*
+   * สร้าง card
+   */
+
+  uniqueTweets.forEach(
+    tweet => {
+
+      const card =
+        createTweetCard(
+          tweet
+        );
+
+
+      tweetList.appendChild(
+        card
+      );
+
+
+      /*
+       * โหลดข้อมูลของ Tweet
+       * เพื่อเอาจำนวน message
+       */
+
+      loadTweetDataForCard(
+        card,
+        tweet.tweet_id.trim()
+      );
+
+    }
+  );
+
+}
+
+
+
+/* =========================================================
+   CREATE TWEET CARD
+========================================================= */
+
+function createTweetCard(
+  tweet
+) {
+
+  const card =
+    document.createElement(
+      "div"
+    );
+
+
+  card.className =
+    "tweet-card";
+
+
+  card.dataset.tweetId =
+    tweet.tweet_id.trim();
+
+
+  /*
+   * Account
+   */
+
+  const account =
+    document.createElement(
+      "div"
+    );
+
+  account.className =
+    "account-name";
+
+  account.textContent =
+    tweet.acc_name ||
+    "Unknown";
+
+
+  /*
+   * Message
+   */
+
+  const message =
+    document.createElement(
+      "div"
+    );
+
+  message.className =
+    "message-box";
+
+  message.textContent =
+    "กำลังโหลดข้อความ...";
+
+
+  /*
+   * Random
+   */
+
+  const randomButton =
+    document.createElement(
+      "button"
+    );
+
+  randomButton.className =
+    "random-btn";
+
+  randomButton.textContent =
+    "🎲 สุ่มข้อความ";
+
+
+  /*
+   * Use
+   */
+
+  const useButton =
+    document.createElement(
+      "button"
+    );
+
+  useButton.className =
+    "use-btn";
+
+  useButton.textContent =
+    "ใช้ข้อความนี้";
+
+  useButton.disabled =
+    true;
+
+
+  /*
+   * Reply
+   */
+
+  const replyButton =
+    document.createElement(
+      "a"
+    );
+
+  replyButton.className =
+    "reply-btn disabled";
+
+  replyButton.textContent =
+    "Reply";
+
+  replyButton.target =
+    "_blank";
+
+  replyButton.rel =
+    "noopener noreferrer";
+
+
+  /*
+   * Remaining
+   */
+
+  const remaining =
+    document.createElement(
+      "div"
+    );
+
+  remaining.className =
+    "remaining";
+
+  remaining.textContent =
+    "message ที่เหลือ -/-";
+
+
+  /*
+   * Tweet ID
+   */
+
+  const tweetId =
+    document.createElement(
+      "div"
+    );
+
+  tweetId.className =
+    "tweet-id";
+
+  tweetId.textContent =
+    maskTweetId(
+      tweet.tweet_id.trim()
+    );
+
+
+  /*
+   * Status
+   */
+
+  const status =
+    document.createElement(
+      "div"
+    );
+
+  status.className =
+    "status";
+
+
+  /*
+   * ประกอบ Card
+   */
+
+  card.appendChild(
+    account
+  );
+
+  card.appendChild(
+    message
+  );
+
+  card.appendChild(
+    randomButton
+  );
+
+  card.appendChild(
+    useButton
+  );
+
+  card.appendChild(
+    replyButton
+  );
+
+  card.appendChild(
+    remaining
+  );
+
+  card.appendChild(
+    tweetId
+  );
+
+  card.appendChild(
+    status
+  );
+
+
+  /*
+   * เก็บ element reference
+   */
+
+  card._ui = {
+
+    account,
+    message,
+    randomButton,
+    useButton,
+    replyButton,
+    remaining,
+    tweetId,
+    status
+
+  };
+
+
+  /*
+   * -----------------------------------------
+   * Random click
+   * -----------------------------------------
+   */
+
+  randomButton.addEventListener(
+    "click",
+    async () => {
+
+      await randomMessage(
+        card,
+        tweet.tweet_id.trim()
+      );
+
+    }
+  );
+
+
+  /*
+   * -----------------------------------------
+   * Use click
+   * -----------------------------------------
+   */
+
+  useButton.addEventListener(
+    "click",
+    async () => {
+
+      await useCurrentMessage(
+        card,
+        tweet.tweet_id.trim()
+      );
+
+    }
+  );
+
+
+  return card;
+
+}
+
+
+
+/* =========================================================
+   LOAD TWEET DATA
+========================================================= */
+
+async function loadTweetDataForCard(
+  card,
+  tweetId
+) {
+
+  try {
+
+    /*
+     * โหลด message sheet
+     */
+
+    const data =
+      await loadMessageSheet(
+        tweetId
+      );
+
+
+    /*
+     * โหลด used
+     */
+
+    const usedIds =
+      await getUsedMessageIds(
+        tweetId
+      );
+
+
+    /*
+     * update count
+     */
+
+    updateRemaining(
+      card,
+      data,
+      usedIds
+    );
+
+
+    /*
+     * ถ้ามีข้อความ
+     */
+
+    if (
+      data.messages.length
+    ) {
+
+      card._ui.message.textContent =
+        "กด 🎲 สุ่มข้อความ";
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    card._ui.message.textContent =
+      "โหลดข้อความไม่สำเร็จ";
+
+    card._ui.randomButton.disabled =
+      true;
+
+    card._ui.status.textContent =
+      error.message;
+
+  }
+
+}
+
+
+
+/* =========================================================
    LOAD MESSAGE SHEET
-===================================================== */
+========================================================= */
 
 async function loadMessageSheet(
   tweetId
 ) {
 
+  /*
+   * ใช้ cache
+   */
+
+  if (
+    messageCache.has(
+      tweetId
+    )
+  ) {
+
+    return messageCache.get(
+      tweetId
+    );
+
+  }
+
+
+  /*
+   * Sheet name = tweet ID
+   */
+
   const sheetName =
-    encodeURIComponent(tweetId);
+    encodeURIComponent(
+      tweetId
+    );
+
+
+  /*
+   * Google Visualization
+   */
 
   const url =
     `https://docs.google.com/spreadsheets/d/` +
     `${SPREADSHEET_ID}` +
-    `/gviz/tq?tqx=out:csv&sheet=${sheetName}` +
+    `/gviz/tq?tqx=out:csv` +
+    `&sheet=${sheetName}` +
     `&t=${Date.now()}`;
+
 
   const response =
     await fetch(url);
 
+
   if (!response.ok) {
 
     throw new Error(
-      "ไม่พบ worksheet: " + tweetId
+      `โหลด Sheet ${tweetId} ไม่สำเร็จ`
     );
+
   }
 
-  const csvText =
+
+  const csv =
     await response.text();
 
-  const rows =
-    parseCSV(csvText);
 
-  validateMessageSheet(rows);
+  const parsed =
+    parseMessageSheet(
+      csv,
+      tweetId
+    );
 
-  return rows;
+
+  messageCache.set(
+    tweetId,
+    parsed
+  );
+
+
+  return parsed;
+
 }
 
 
-/* =====================================================
-   RANDOM MESSAGE
-===================================================== */
 
-randomBtn.addEventListener(
-  "click",
-  async () => {
+/* =========================================================
+   PARSE MESSAGE SHEET
+========================================================= */
 
-    if (!currentTweetId) {
+function parseMessageSheet(
+  csv,
+  expectedTweetId
+) {
 
-      setStatus(
-        "⚠️ กรุณาเลือก Tweet ก่อน"
-      );
-
-      return;
-    }
-
-    try {
-
-      randomBtn.disabled =
-        true;
-
-      replyBtn.disabled =
-        true;
-
-      usedBtn.disabled =
-        true;
-
-      setStatus(
-        "กำลังสุ่ม..."
-      );
-
-      /*
-       * ดึงข้อความที่ถูกใช้ไปแล้ว
-       */
-
-      const usedIds =
-        await getUsedMessageIds(
-          currentTweetId
-        );
-
-      /*
-       * เอาเฉพาะข้อความที่ยังไม่ถูกใช้
-       */
-
-      const availableRows =
-        currentRows.filter(row => {
-
-          const id =
-            String(row.id || "").trim();
-
-          return id &&
-            !usedIds.has(id);
-
-        });
-
-      /*
-       * ไม่มีข้อความเหลือ
-       */
-
-      if (
-        availableRows.length === 0
-      ) {
-
-        currentMessage =
-          null;
-
-        messageBox.textContent =
-          "❌ ข้อความถูกใช้หมดแล้ว";
-
-        countBox.textContent =
-          "เหลือ 0 ข้อความ";
-
-        setStatus("");
-
-        return;
-      }
+  const rows =
+    parseCSV(csv);
 
 
-      /*
-       * Random
-       */
+  if (
+    !rows.length
+  ) {
 
-      const randomIndex =
-        Math.floor(
-          Math.random() *
-          availableRows.length
-        );
+    throw new Error(
+      `Sheet ${expectedTweetId} ไม่มีข้อมูล`
+    );
 
-      currentMessage =
-        availableRows[randomIndex];
-
-
-      /*
-       * แสดงข้อความ
-       */
-
-      messageBox.textContent =
-        currentMessage.text;
-
-
-      /*
-       * X Reply URL
-       */
-
-      const text =
-        currentMessage.text;
-
-      const xUrl =
-        `https://x.com/intent/tweet` +
-        `?in_reply_to=${currentTweetId}` +
-        `&text=${encodeURIComponent(text)}`;
-
-
-      replyBtn.onclick =
-        () => {
-
-          window.open(
-            xUrl,
-            "_blank",
-            "noopener,noreferrer"
-          );
-
-        };
-
-
-      /*
-       * เปิดปุ่ม
-       */
-
-      replyBtn.disabled =
-        false;
-
-      usedBtn.disabled =
-        false;
-
-      countBox.textContent =
-        `เหลือ ${availableRows.length} ข้อความ`;
-
-
-      setStatus("");
-
-    } catch (error) {
-
-      console.error(error);
-
-      setStatus(
-        "❌ " + error.message
-      );
-
-    } finally {
-
-      randomBtn.disabled =
-        false;
-
-    }
   }
-);
 
 
-/* =====================================================
-   MARK AS USED
-===================================================== */
+  /*
+   * -----------------------------------------
+   * หา All_message
+   *
+   * A1 = All_message
+   * B1 = 5
+   * -----------------------------------------
+   */
 
-usedBtn.addEventListener(
-  "click",
-  async () => {
+  let totalCount =
+    null;
+
+
+  for (
+    const row
+    of rows
+  ) {
 
     if (
-      !currentTweetId ||
-      !currentMessage
+      String(row[0]).trim()
+      ===
+      "All_message"
     ) {
 
-      return;
-    }
-
-    try {
-
-      usedBtn.disabled =
-        true;
-
-      replyBtn.disabled =
-        true;
-
-      setStatus(
-        "กำลังบันทึก..."
-      );
-
-
-      /*
-       * บันทึกลง Supabase
-       */
-
-      const response =
-        await fetch(
-          `${SUPABASE_URL}/rest/v1/used_messages`,
-          {
-
-            method: "POST",
-
-            headers: {
-
-              "apikey":
-                SUPABASE_ANON_KEY,
-
-              "Authorization":
-                `Bearer ${SUPABASE_ANON_KEY}`,
-
-              "Content-Type":
-                "application/json",
-
-              "Prefer":
-                "resolution=ignore-duplicates"
-
-            },
-
-            body:
-              JSON.stringify({
-
-                tweet_id:
-                  String(currentTweetId),
-
-                message_id:
-                  String(currentMessage.id)
-
-              })
-
-          }
+      const value =
+        Number(
+          String(
+            row[1] || ""
+          ).trim()
         );
 
 
-      if (!response.ok) {
+      if (
+        Number.isFinite(
+          value
+        )
+      ) {
 
-        const errorText =
-          await response.text();
+        totalCount =
+          value;
 
-        throw new Error(
-          errorText
-        );
       }
 
+      break;
 
-      /*
-       * สำเร็จ
-       */
+    }
 
-      messageBox.textContent =
-        currentMessage.text;
+  }
 
-      setStatus(
-        "✅ ใช้ข้อความนี้แล้ว"
+
+  /*
+   * -----------------------------------------
+   * หา header
+   *
+   * message_id | tweet_id | text | status
+   * -----------------------------------------
+   */
+
+  let headerIndex =
+    -1;
+
+
+  let headers = [];
+
+
+  for (
+    let i = 0;
+    i < rows.length;
+    i++
+  ) {
+
+    const normalized =
+      rows[i].map(
+        value =>
+          String(value)
+            .replace(
+              /^\uFEFF/,
+              ""
+            )
+            .trim()
       );
 
 
-      /*
-       * ไม่ให้กดซ้ำ
-       */
+    if (
+      normalized.includes(
+        "message_id"
+      ) &&
+      normalized.includes(
+        "tweet_id"
+      ) &&
+      normalized.includes(
+        "text"
+      )
+    ) {
 
-      currentMessage =
+      headerIndex =
+        i;
+
+      headers =
+        normalized;
+
+      break;
+
+    }
+
+  }
+
+
+  if (
+    headerIndex === -1
+  ) {
+
+    throw new Error(
+      `ไม่พบ header message_id / tweet_id / text ใน Sheet ${expectedTweetId}`
+    );
+
+  }
+
+
+  /*
+   * -----------------------------------------
+   * column index
+   * -----------------------------------------
+   */
+
+  const messageIdIndex =
+    headers.indexOf(
+      "message_id"
+    );
+
+
+  const tweetIdIndex =
+    headers.indexOf(
+      "tweet_id"
+    );
+
+
+  const textIndex =
+    headers.indexOf(
+      "text"
+    );
+
+
+  /*
+   * -----------------------------------------
+   * data rows
+   * -----------------------------------------
+   */
+
+  const messages = [];
+
+
+  for (
+    let i = headerIndex + 1;
+    i < rows.length;
+    i++
+  ) {
+
+    const row =
+      rows[i];
+
+
+    const messageId =
+      String(
+        row[messageIdIndex]
+        || ""
+      ).trim();
+
+
+    const tweetId =
+      String(
+        row[tweetIdIndex]
+        || ""
+      ).trim();
+
+
+    const rawText =
+      String(
+        row[textIndex]
+        || ""
+      );
+
+
+    const text =
+      normalizeText(
+        rawText
+      );
+
+
+    /*
+     * ข้าม row ว่าง
+     */
+
+    if (
+      !messageId ||
+      !tweetId ||
+      !text
+    ) {
+
+      continue;
+
+    }
+
+
+    /*
+     * ตรวจ Tweet ID
+     */
+
+    if (
+      tweetId !==
+      expectedTweetId
+    ) {
+
+      throw new Error(
+        `พบ tweet_id ${tweetId} ไม่ตรงกับ Sheet ${expectedTweetId}`
+      );
+
+    }
+
+
+    messages.push({
+
+      message_id:
+        messageId,
+
+      tweet_id:
+        tweetId,
+
+      text:
+        text
+
+    });
+
+  }
+
+
+  /*
+   * ถ้า B1 ไม่มีค่า
+   * ใช้จำนวนข้อมูลจริง
+   */
+
+  if (
+    totalCount === null
+  ) {
+
+    totalCount =
+      messages.length;
+
+  }
+
+
+  const result = {
+
+    totalCount:
+      totalCount,
+
+    messages:
+      messages
+
+  };
+
+
+  return result;
+
+}
+
+
+
+/* =========================================================
+   RANDOM MESSAGE
+========================================================= */
+
+async function randomMessage(
+  card,
+  tweetId
+) {
+
+  const ui =
+    card._ui;
+
+
+  ui.randomButton.disabled =
+    true;
+
+
+  ui.randomButton.textContent =
+    "กำลังสุ่ม...";
+
+
+  ui.useButton.disabled =
+    true;
+
+
+  ui.replyButton.classList.add(
+    "disabled"
+  );
+
+
+  ui.status.textContent =
+    "";
+
+
+  try {
+
+    /*
+     * โหลด message
+     */
+
+    const data =
+      await loadMessageSheet(
+        tweetId
+      );
+
+
+    /*
+     * โหลดรายการใช้แล้ว
+     */
+
+    const usedIds =
+      await getUsedMessageIds(
+        tweetId
+      );
+
+
+    /*
+     * filter เหลือ
+     */
+
+    const available =
+      data.messages.filter(
+        message =>
+          !usedIds.has(
+            String(
+              message.message_id
+            )
+          )
+      );
+
+
+    /*
+     * Update counter
+     */
+
+    updateRemaining(
+      card,
+      data,
+      usedIds
+    );
+
+
+    /*
+     * หมดแล้ว
+     */
+
+    if (
+      !available.length
+    ) {
+
+      ui.message.textContent =
+        "ข้อความถูกใช้หมดแล้ว";
+
+      ui.status.textContent =
+        "ไม่มีข้อความเหลือให้สุ่ม";
+
+      return;
+
+    }
+
+
+    /*
+     * Random
+     */
+
+    const index =
+      Math.floor(
+        Math.random() *
+        available.length
+      );
+
+
+    const selected =
+      available[index];
+
+
+    /*
+     * เก็บ selected message
+     */
+
+    card._selectedMessage =
+      selected;
+
+
+    /*
+     * แสดงข้อความ
+     */
+
+    ui.message.textContent =
+      selected.text;
+
+
+    /*
+     * X Reply URL
+     *
+     * ใช้ in_reply_to
+     */
+
+    const replyUrl =
+      createReplyUrl(
+        tweetId,
+        selected.text
+      );
+
+
+    ui.replyButton.href =
+      replyUrl;
+
+
+    /*
+     * เปิดปุ่ม
+     */
+
+    ui.replyButton.classList.remove(
+      "disabled"
+    );
+
+
+    ui.useButton.disabled =
+      false;
+
+
+    ui.status.textContent =
+      "ข้อความนี้ยังไม่ได้บันทึกว่าใช้แล้ว";
+
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    ui.message.textContent =
+      "สุ่มข้อความไม่สำเร็จ";
+
+    ui.status.textContent =
+      error.message;
+
+  }
+
+  finally {
+
+    ui.randomButton.disabled =
+      false;
+
+    ui.randomButton.textContent =
+      "🎲 สุ่มข้อความ";
+
+  }
+
+}
+
+
+
+/* =========================================================
+   USE CURRENT MESSAGE
+========================================================= */
+
+async function useCurrentMessage(
+  card,
+  tweetId
+) {
+
+  const ui =
+    card._ui;
+
+
+  const selected =
+    card._selectedMessage;
+
+
+  if (
+    !selected
+  ) {
+
+    ui.status.textContent =
+      "กรุณาสุ่มข้อความก่อน";
+
+    return;
+
+  }
+
+
+  ui.useButton.disabled =
+    true;
+
+
+  ui.randomButton.disabled =
+    true;
+
+
+  ui.status.textContent =
+    "กำลังบันทึก...";
+
+
+  try {
+
+    /*
+     * Atomic claim
+     */
+
+    const claimed =
+      await claimMessage(
+        tweetId,
+        selected.message_id
+      );
+
+
+    /*
+     * มีคนอื่นใช้ไปก่อนแล้ว
+     */
+
+    if (!claimed) {
+
+      ui.status.textContent =
+        "ข้อความนี้ถูกคนอื่นใช้ไปแล้ว กรุณาสุ่มใหม่";
+
+
+      card._selectedMessage =
         null;
 
-      await updateCount();
+
+      ui.useButton.disabled =
+        true;
 
 
-    } catch (error) {
-
-      console.error(error);
-
-      setStatus(
-        "❌ บันทึกไม่สำเร็จ"
+      ui.replyButton.classList.add(
+        "disabled"
       );
 
-      usedBtn.disabled =
-        false;
 
-      replyBtn.disabled =
-        false;
+      /*
+       * refresh counter
+       */
+
+      await refreshCardCounter(
+        card,
+        tweetId
+      );
+
+
+      return;
+
     }
+
+
+    /*
+     * สำเร็จ
+     */
+
+    ui.status.textContent =
+      "✓ ใช้ข้อความนี้แล้ว";
+
+
+    ui.useButton.textContent =
+      "✓ ใช้แล้ว";
+
+
+    /*
+     * ล้าง selected
+     */
+
+    card._selectedMessage =
+      null;
+
+
+    /*
+     * Refresh counter
+     */
+
+    await refreshCardCounter(
+      card,
+      tweetId
+    );
+
+
   }
-);
+
+  catch (error) {
+
+    console.error(error);
+
+    ui.status.textContent =
+      "บันทึกไม่สำเร็จ: " +
+      error.message;
 
 
-/* =====================================================
+    ui.useButton.disabled =
+      false;
+
+  }
+
+  finally {
+
+    ui.randomButton.disabled =
+      false;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   CLAIM MESSAGE
+========================================================= */
+
+async function claimMessage(
+  tweetId,
+  messageId
+) {
+
+  const response =
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/rpc/claim_message`,
+      {
+
+        method:
+          "POST",
+
+        headers: {
+
+          "apikey":
+            SUPABASE_KEY,
+
+          "Authorization":
+            `Bearer ${SUPABASE_KEY}`,
+
+          "Content-Type":
+            "application/json"
+
+        },
+
+        body:
+          JSON.stringify({
+
+            p_tweet_id:
+              String(
+                tweetId
+              ),
+
+            p_message_id:
+              String(
+                messageId
+              )
+
+          })
+
+      }
+    );
+
+
+  if (
+    !response.ok
+  ) {
+
+    const text =
+      await response.text();
+
+
+    throw new Error(
+      `Supabase claim error: ${text}`
+    );
+
+  }
+
+
+  const result =
+    await response.json();
+
+
+  return result === true;
+
+}
+
+
+
+/* =========================================================
    GET USED MESSAGE IDS
-===================================================== */
+========================================================= */
 
 async function getUsedMessageIds(
   tweetId
 ) {
 
   const url =
-    `${SUPABASE_URL}` +
-    `/rest/v1/used_messages` +
+    `${SUPABASE_URL}/rest/v1/used_messages` +
     `?select=message_id` +
-    `&tweet_id=eq.${encodeURIComponent(tweetId)}`;
+    `&tweet_id=eq.${encodeURIComponent(
+      tweetId
+    )}`;
 
 
   const response =
@@ -682,13 +2146,16 @@ async function getUsedMessageIds(
       url,
       {
 
+        method:
+          "GET",
+
         headers: {
 
           "apikey":
-            SUPABASE_ANON_KEY,
+            SUPABASE_KEY,
 
           "Authorization":
-            `Bearer ${SUPABASE_ANON_KEY}`
+            `Bearer ${SUPABASE_KEY}`
 
         }
 
@@ -696,65 +2163,282 @@ async function getUsedMessageIds(
     );
 
 
-  if (!response.ok) {
+  if (
+    !response.ok
+  ) {
+
+    const text =
+      await response.text();
+
 
     throw new Error(
-      "อ่านสถานะข้อความไม่สำเร็จ"
+      `Supabase read error: ${text}`
     );
+
   }
 
 
-  const rows =
+  const data =
     await response.json();
 
 
   return new Set(
-    rows.map(
+    data.map(
       row =>
-        String(row.message_id)
+        String(
+          row.message_id
+        )
     )
   );
+
 }
 
 
-/* =====================================================
-   UPDATE COUNT
-===================================================== */
 
-async function updateCount() {
+/* =========================================================
+   REFRESH COUNTER
+========================================================= */
 
-  if (!currentTweetId) {
-    return;
-  }
+async function refreshCardCounter(
+  card,
+  tweetId
+) {
+
+  const data =
+    await loadMessageSheet(
+      tweetId
+    );
+
 
   const usedIds =
     await getUsedMessageIds(
-      currentTweetId
+      tweetId
     );
 
-  const available =
-    currentRows.filter(row => {
 
-      const id =
-        String(row.id || "").trim();
+  updateRemaining(
+    card,
+    data,
+    usedIds
+  );
 
-      return id &&
-        !usedIds.has(id);
-
-    });
-
-
-  countBox.textContent =
-    `เหลือ ${available.length} / ` +
-    `${currentRows.length} ข้อความ`;
 }
 
 
-/* =====================================================
-   CSV PARSER
-===================================================== */
 
-function parseCSV(text) {
+/* =========================================================
+   UPDATE REMAINING
+========================================================= */
+
+function updateRemaining(
+  card,
+  data,
+  usedIds
+) {
+
+  const availableCount =
+    data.messages.filter(
+      message =>
+        !usedIds.has(
+          String(
+            message.message_id
+          )
+        )
+    ).length;
+
+
+  card._ui.remaining.textContent =
+    `message ที่เหลือ ${availableCount}/${data.totalCount}`;
+
+}
+
+
+
+/* =========================================================
+   CREATE X REPLY URL
+========================================================= */
+
+function createReplyUrl(
+  tweetId,
+  text
+) {
+
+  return (
+    "https://twitter.com/intent/tweet" +
+    "?in_reply_to=" +
+    encodeURIComponent(
+      tweetId
+    ) +
+    "&text=" +
+    encodeURIComponent(
+      text
+    )
+  );
+
+}
+
+
+
+/* =========================================================
+   MASK TWEET ID
+========================================================= */
+
+function maskTweetId(
+  tweetId
+) {
+
+  const id =
+    String(
+      tweetId
+    );
+
+
+  if (
+    id.length <= 4
+  ) {
+
+    return `TW: ••••••••${id}`;
+
+  }
+
+
+  return (
+    "TW: ••••••••" +
+    id.slice(-4)
+  );
+
+}
+
+
+
+/* =========================================================
+   NORMALIZE TEXT
+========================================================= */
+
+function normalizeText(
+  text
+) {
+
+  return String(text)
+
+    .replace(
+      /<br\s*\/?>/gi,
+      "\n"
+    )
+
+    .trim();
+
+}
+
+
+
+/* =========================================================
+   CACHE BUSTER
+========================================================= */
+
+function addCacheBuster(
+  url
+) {
+
+  const separator =
+    url.includes("?")
+      ? "&"
+      : "?";
+
+
+  return (
+    url +
+    separator +
+    "t=" +
+    Date.now()
+  );
+
+}
+
+
+
+/* =========================================================
+   CSV → OBJECTS
+========================================================= */
+
+function csvToObjects(
+  csv
+) {
+
+  const rows =
+    parseCSV(csv);
+
+
+  if (
+    !rows.length
+  ) {
+
+    return [];
+
+  }
+
+
+  const headers =
+    rows[0].map(
+      header =>
+        String(
+          header
+        )
+          .replace(
+            /^\uFEFF/,
+            ""
+          )
+          .trim()
+    );
+
+
+  return rows
+    .slice(1)
+    .filter(
+      row =>
+        row.some(
+          value =>
+            String(
+              value
+            ).trim() !== ""
+        )
+    )
+    .map(
+      row => {
+
+        const object = {};
+
+
+        headers.forEach(
+          (
+            header,
+            index
+          ) => {
+
+            object[header] =
+              row[index] ||
+              "";
+
+          }
+        );
+
+
+        return object;
+
+      }
+    );
+
+}
+
+
+
+/* =========================================================
+   CSV PARSER
+========================================================= */
+
+function parseCSV(
+  csv
+) {
 
   const rows = [];
 
@@ -762,21 +2446,27 @@ function parseCSV(text) {
 
   let value = "";
 
-  let insideQuotes = false;
+  let insideQuotes =
+    false;
 
 
   for (
     let i = 0;
-    i < text.length;
+    i < csv.length;
     i++
   ) {
 
     const char =
-      text[i];
+      csv[i];
+
 
     const next =
-      text[i + 1];
+      csv[i + 1];
 
+
+    /*
+     * escaped quote
+     */
 
     if (
       char === '"' &&
@@ -789,8 +2479,13 @@ function parseCSV(text) {
       i++;
 
       continue;
+
     }
 
+
+    /*
+     * quote
+     */
 
     if (
       char === '"'
@@ -800,25 +2495,39 @@ function parseCSV(text) {
         !insideQuotes;
 
       continue;
+
     }
 
+
+    /*
+     * comma
+     */
 
     if (
       char === "," &&
       !insideQuotes
     ) {
 
-      row.push(value);
+      row.push(
+        value
+      );
 
       value = "";
 
       continue;
+
     }
 
 
+    /*
+     * newline
+     */
+
     if (
-      (char === "\n" ||
-       char === "\r") &&
+      (
+        char === "\n" ||
+        char === "\r"
+      ) &&
       !insideQuotes
     ) {
 
@@ -826,212 +2535,82 @@ function parseCSV(text) {
         char === "\r" &&
         next === "\n"
       ) {
+
         i++;
+
       }
 
-      row.push(value);
 
-      rows.push(row);
+      row.push(
+        value
+      );
+
+      rows.push(
+        row
+      );
+
 
       row = [];
 
       value = "";
 
       continue;
+
     }
 
 
-    value += char;
+    value +=
+      char;
 
   }
-
-
-  if (
-    value.length > 0 ||
-    row.length > 0
-  ) {
-
-    row.push(value);
-
-    rows.push(row);
-  }
-
-
-  if (
-    rows.length === 0
-  ) {
-
-    return [];
-  }
-
-
-  const headers =
-    rows[0].map(
-      h =>
-        h.trim()
-    );
-
-
-  return rows
-    .slice(1)
-    .filter(row =>
-      row.some(
-        value =>
-          value.trim() !== ""
-      )
-    )
-    .map(row => {
-
-      const obj = {};
-
-      headers.forEach(
-        (header, index) => {
-
-          obj[header] =
-            row[index] || "";
-
-        }
-      );
-
-      return obj;
-
-    });
-}
-
-
-/* =====================================================
-   VALIDATION
-===================================================== */
-
-function validateMainSheet() {
-
-  const required = [
-    "Topic",
-    "Acc_name",
-    "link_post",
-    "tweet_id"
-  ];
-
-  if (
-    mainRows.length === 0
-  ) {
-
-    throw new Error(
-      "main sheet ไม่มีข้อมูล"
-    );
-  }
-
-  required.forEach(column => {
-
-    if (
-      !(column in mainRows[0])
-    ) {
-
-      throw new Error(
-        `main ไม่มี column ${column}`
-      );
-    }
-
-  });
-}
-
-
-function validateMessageSheet(rows) {
-
-  if (
-    rows.length === 0
-  ) {
-
-    throw new Error(
-      "worksheet ไม่มีข้อมูล"
-    );
-  }
-
-
-  const required = [
-    "id",
-    "tweet_id",
-    "text"
-  ];
-
-
-  required.forEach(column => {
-
-    if (
-      !(column in rows[0])
-    ) {
-
-      throw new Error(
-        `worksheet ไม่มี column ${column}`
-      );
-    }
-
-  });
 
 
   /*
-   * ป้องกันเอาข้อความของ Tweet อื่นมาสุ่ม
+   * final row
    */
 
-  rows.forEach(row => {
+  if (
+    value !== "" ||
+    row.length
+  ) {
 
-    if (
-      String(row.tweet_id).trim()
-      !==
-      String(currentTweetId).trim()
-    ) {
+    row.push(
+      value
+    );
 
-      throw new Error(
-        `พบ tweet_id ไม่ตรงกัน: ${row.tweet_id}`
-      );
-    }
 
-  });
+    rows.push(
+      row
+    );
+
+  }
+
+
+  return rows;
+
 }
 
 
-/* =====================================================
-   RESET
-===================================================== */
 
-function reset() {
+/* =========================================================
+   ERROR
+========================================================= */
 
-  currentTweetId =
-    null;
+function showError(
+  message
+) {
 
-  currentRows =
-    [];
+  errorBox.textContent =
+    message;
 
-  currentMessage =
-    null;
+  errorBox.style.display =
+    "block";
 
-  messageBox.textContent =
-    "ยังไม่ได้สุ่มข้อความ";
-
-  countBox.textContent =
-    "-";
-
-  replyBtn.disabled =
-    true;
-
-  usedBtn.disabled =
-    true;
-
-  setStatus("");
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-function setStatus(text) {
-
-  statusBox.textContent =
-    text;
 }
 
 </script>
 
+
 </body>
+
 </html>
