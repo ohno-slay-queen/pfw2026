@@ -1,666 +1,258 @@
 <!DOCTYPE html>
-
 <html lang="th">
-
 <head>
-
-  <meta charset="UTF-8">
-
+  <meta charset="UTF-8" />
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  />
 
-  <title>X Reply Randomizer</title>
-
-
-  <!--
-    X Web Intent
-  -->
-  <script
-    async
-    src="https://platform.twitter.com/widgets.js">
-  </script>
-
+  <title>PFW Reply</title>
 
   <style>
-
     * {
       box-sizing: border-box;
     }
 
-
     body {
-
       margin: 0;
-
-      min-height: 100vh;
-
       font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
-        Arial,
         sans-serif;
-
-      background: #f4f4f4;
-
-      color: #111;
-
+      background: #f5f5f5;
+      color: #222;
     }
-
 
     .container {
-
-      width: 100%;
-
-      max-width: 700px;
-
+      width: min(100%, 1000px);
       margin: 0 auto;
-
-      padding:
-        24px
-        16px
-        60px;
-
+      padding: 24px 16px 50px;
     }
 
-
-    /* =========================================
-       HEADER
-    ========================================= */
-
-    .header {
-
+    h1 {
       text-align: center;
+      margin: 0 0 20px;
+      font-size: 28px;
+    }
 
+    .topic-box {
       margin-bottom: 24px;
-
     }
 
-
-    .header h1 {
-
-      margin: 0;
-
-      font-size: 26px;
-
-    }
-
-
-    /* =========================================
-       TOPIC
-    ========================================= */
-
-    .topic-section {
-
-      margin-bottom: 24px;
-
-    }
-
-
-    .topic-label {
-
+    .topic-box label {
       display: block;
-
       margin-bottom: 8px;
-
-      font-size: 14px;
-
-      font-weight: 700;
-
-    }
-
-
-    #topicSelect {
-
-      width: 100%;
-
-      padding: 14px 16px;
-
-      border:
-        1px solid #ddd;
-
-      border-radius: 14px;
-
-      background: #fff;
-
-      font-size: 16px;
-
-      outline: none;
-
-    }
-
-
-    /* =========================================
-       TWEET LIST
-    ========================================= */
-
-    #tweetList {
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 18px;
-
-    }
-
-
-    .empty {
-
-      padding: 30px 20px;
-
-      background: white;
-
-      border-radius: 20px;
-
-      text-align: center;
-
-      color: #888;
-
-    }
-
-
-    /* =========================================
-       TWEET CARD
-    ========================================= */
-
-    .tweet-card {
-
-      background: white;
-
-      padding:
-        24px
-        20px;
-
-      border-radius: 22px;
-
-      box-shadow:
-        0 5px 20px
-        rgba(0, 0, 0, 0.06);
-
-      text-align: center;
-
-    }
-
-
-    /* =========================================
-       ACCOUNT
-    ========================================= */
-
-    .account-name {
-
-      font-size: 22px;
-
-      font-weight: 700;
-
-      margin-bottom: 20px;
-
-    }
-
-
-    /* =========================================
-       MESSAGE
-    ========================================= */
-
-    .message-box {
-
-      min-height: 120px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 20px;
-
-      background: #f6f6f6;
-
-      border-radius: 18px;
-
-      font-size: 19px;
-
-      line-height: 1.55;
-
-      white-space: pre-wrap;
-
-      word-break: break-word;
-
-      margin-bottom: 14px;
-
-    }
-
-
-    /* =========================================
-       RANDOM BUTTON
-    ========================================= */
-
-    .random-btn {
-
-      width: 100%;
-
-      min-height: 48px;
-
-      border: none;
-
-      border-radius: 999px;
-
-      background: #111;
-
-      color: #fff;
-
-      font-size: 16px;
-
-      font-weight: 700;
-
-      cursor: pointer;
-
-    }
-
-
-    .random-btn:disabled {
-
-      background: #aaa;
-
-      cursor: not-allowed;
-
-    }
-
-
-    /* =========================================
-       USE BUTTON
-    ========================================= */
-
-    .use-btn {
-
-      width: 100%;
-
-      min-height: 48px;
-
-      margin-top: 10px;
-
-      border: none;
-
-      border-radius: 999px;
-
-      background: #16a34a;
-
-      color: white;
-
-      font-size: 16px;
-
-      font-weight: 700;
-
-      cursor: pointer;
-
-    }
-
-
-    .use-btn:disabled {
-
-      background: #aaa;
-
-      cursor: not-allowed;
-
-    }
-
-
-    /* =========================================
-       REPLY BUTTON
-    ========================================= */
-
-    .reply-btn {
-
-      width: 100%;
-
-      min-height: 48px;
-
-      margin-top: 10px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      border-radius: 999px;
-
-      background: #1d9bf0;
-
-      color: white;
-
-      text-decoration: none;
-
-      font-size: 16px;
-
-      font-weight: 700;
-
-    }
-
-
-    .reply-btn.disabled {
-
-      opacity: 0.45;
-
-      pointer-events: none;
-
-    }
-
-
-    /* =========================================
-       COUNTER
-    ========================================= */
-
-    .remaining {
-
-      margin-top: 18px;
-
-      color: #777;
-
-      font-size: 14px;
-
       font-weight: 600;
-
     }
 
-
-    /* =========================================
-       MASKED TWEET ID
-    ========================================= */
-
-    .tweet-id {
-
-      margin-top: 7px;
-
-      color: #aaa;
-
-      font-size: 10px;
-
-      letter-spacing: 0.3px;
-
-      font-weight: 400;
-
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: white;
+      font-size: 16px;
     }
 
+    #cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
 
-    /* =========================================
-       USED STATUS
-    ========================================= */
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      min-height: 360px;
+    }
 
-    .status {
+    .account {
+      text-align: center;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 18px;
+    }
 
-      margin-top: 10px;
+    .message-wrapper {
+      position: relative;
+      background: #f8f8f8;
+      border-radius: 14px;
+      padding: 42px 16px 18px;
+      min-height: 130px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 16px;
+    }
+
+    .message {
+      width: 100%;
+      text-align: center;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      border: none;
+      background: transparent;
+      color: #666;
+
+      padding: 6px 8px;
+      border-radius: 8px;
 
       font-size: 13px;
-
-      color: #777;
-
-      min-height: 18px;
-
+      cursor: pointer;
     }
 
+    .copy-btn:hover {
+      background: #eaeaea;
+    }
 
-    /* =========================================
-       LOADING
-    ========================================= */
+    .copy-btn:disabled {
+      cursor: default;
+    }
 
-    .loading {
+    .random-btn,
+    .reply-btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 16px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+    }
 
-      padding: 20px;
+    .random-btn {
+      background: #111;
+      color: white;
+    }
 
+    .random-btn:hover {
+      opacity: 0.9;
+    }
+
+    .random-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .reply-btn {
+      background: #1d9bf0;
+      color: white;
+    }
+
+    .reply-btn:hover {
+      opacity: 0.9;
+    }
+
+    .reply-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .remaining {
       text-align: center;
-
       color: #777;
-
+      font-size: 13px;
+      margin-top: 14px;
     }
 
+    .tweet-id {
+      text-align: center;
+      color: #aaa;
+      font-size: 11px;
+      margin-top: auto;
+      padding-top: 14px;
+    }
 
-    /* =========================================
-       ERROR
-    ========================================= */
+    .status {
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+      margin: 20px 0;
+    }
 
     .error {
-
-      display: none;
-
-      margin-bottom: 20px;
-
-      padding: 14px;
-
-      border-radius: 12px;
-
-      background: #fee2e2;
-
-      color: #991b1b;
-
-      font-size: 14px;
-
+      color: #d93025;
     }
 
+    .empty {
+      text-align: center;
+      color: #888;
+      padding: 30px 10px;
+    }
 
-    @media (
-      max-width: 480px
-    ) {
-
+    @media (max-width: 600px) {
       .container {
-
-        padding:
-          18px
-          12px
-          50px;
-
+        padding: 18px 12px 40px;
       }
 
-
-      .tweet-card {
-
-        padding:
-          22px
-          16px;
-
+      h1 {
+        font-size: 24px;
       }
 
-
-      .message-box {
-
-        font-size: 18px;
-
+      #cards {
+        grid-template-columns: 1fr;
       }
 
+      .card {
+        min-height: 350px;
+      }
     }
-
   </style>
-
 </head>
-
 
 <body>
 
-
 <div class="container">
 
+  <h1>PFW Reply</h1>
 
-  <!-- =======================================
-       HEADER
-  ======================================== -->
-
-  <div class="header">
-
-    <h1>
-      X Reply
-    </h1>
-
-  </div>
-
-
-  <!-- =======================================
-       ERROR
-  ======================================== -->
-
-  <div
-    id="error"
-    class="error">
-  </div>
-
-
-  <!-- =======================================
-       TOPIC SELECT
-  ======================================== -->
-
-  <div class="topic-section">
-
-    <label
-      class="topic-label"
-      for="topicSelect">
-
-      เลือก Topic
-
-    </label>
-
-
-    <select
-      id="topicSelect">
-
-      <option value="">
-
-        -- เลือก Topic --
-
-      </option>
-
+  <div class="topic-box">
+    <label for="topicSelect">Topic</label>
+    <select id="topicSelect">
+      <option value="">กำลังโหลด...</option>
     </select>
-
   </div>
 
+  <div id="status" class="status"></div>
 
-  <!-- =======================================
-       TWEET LIST
-  ======================================== -->
-
-  <div id="tweetList">
-
-    <div class="empty">
-
-      กรุณาเลือก Topic
-
-    </div>
-
-  </div>
-
-
-  <!-- =======================================
-       LOADING
-  ======================================== -->
-
-  <div
-    id="loading"
-    class="loading">
-
-    กำลังโหลดข้อมูล...
-
-  </div>
-
+  <div id="cards"></div>
 
 </div>
 
-
 <script>
-
-
 /* =========================================================
    CONFIG
 ========================================================= */
 
-
-/*
- * Google Sheet MAIN
- *
- * เอา URL CSV ของ main มาใส่
- *
- * ตัวอย่าง:
- *
- * https://docs.google.com/spreadsheets/d/XXXXX/
- * pub?gid=0&single=true&output=csv
- */
-
 const MAIN_CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-CnwPK2fSRjsBrmWn3XVIXZEbDFPGguJQeco7B4nNv-7YOcxmIk0ge1846CC5OB8o3sqWK7TwIo_a/pub?output=csv";
-
-
-/*
- * Google Spreadsheet ID
- *
- * จาก URL:
- *
- * https://docs.google.com/spreadsheets/d/
- * 1ABCXYZ123456/edit
- *
- * เอาเฉพาะ:
- *
- * 1ABCXYZ123456
- */
 
 const SPREADSHEET_ID =
   "1RJ7OzLLgvMSKdVTxVfKOqQXir7vXIIyWpa_gImp1PzM";
 
-
-/*
- * Supabase URL
- *
- * สำคัญ:
- *
- * ใส่เฉพาะ:
- *
- * https://xxxxx.supabase.co
- *
- * ไม่ใส่ /rest/v1
- */
-
 const SUPABASE_URL =
   "https://romrjbyaqckrpvobbzkw.supabase.co";
 
-
-/*
- * Supabase Publishable Key
- *
- * หรือ legacy anon key
- *
- * ห้ามใช้ secret/service_role
- */
-
 const SUPABASE_KEY =
   "sb_publishable_4DN0Penjs0vuTYzVdY4-Ug_AmsxurCE";
-
-
-
-/* =========================================================
-   DOM
-========================================================= */
-
-const topicSelect =
-  document.getElementById(
-    "topicSelect"
-  );
-
-
-const tweetList =
-  document.getElementById(
-    "tweetList"
-  );
-
-
-const loading =
-  document.getElementById(
-    "loading"
-  );
-
-
-const errorBox =
-  document.getElementById(
-    "error"
-  );
-
 
 
 /* =========================================================
@@ -668,929 +260,536 @@ const errorBox =
 ========================================================= */
 
 let mainRows = [];
-
 let selectedTopic = "";
 
-
-/*
- * cache message ของแต่ละ Tweet
- *
- * key:
- * tweet_id
- *
- * value:
- * {
- *   totalCount,
- *   messages
- * }
- */
-
-const messageCache =
-  new Map();
-
+const childSheetCache = new Map();
+const usedMessageCache = new Map();
 
 
 /* =========================================================
-   INIT
+   DOM
 ========================================================= */
 
-init();
+const topicSelect = document.getElementById("topicSelect");
+const cardsContainer = document.getElementById("cards");
+const statusEl = document.getElementById("status");
 
 
-async function init() {
+/* =========================================================
+   HELPERS
+========================================================= */
 
-  try {
-
-    await loadMain();
-
-    buildTopics();
-
-    loading.style.display =
-      "none";
-
-  }
-
-  catch (error) {
-
-    console.error(error);
-
-    loading.style.display =
-      "none";
-
-    showError(
-      error.message
-    );
-
-  }
-
+function normalizeText(text) {
+  return String(text ?? "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .trim();
 }
 
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+function maskTweetId(tweetId) {
+  const id = String(tweetId);
+
+  if (id.length <= 4) {
+    return `TW: ••••••••${id}`;
+  }
+
+  return "TW: ••••••••" + id.slice(-4);
+}
+
+
+function createReplyUrl(tweetId, text) {
+  return (
+    "https://x.com/intent/tweet" +
+    "?in_reply_to=" +
+    encodeURIComponent(tweetId) +
+    "&text=" +
+    encodeURIComponent(text)
+  );
+}
+
 
 /* =========================================================
-   LOAD MAIN
+   CSV PARSER
 ========================================================= */
 
-async function loadMain() {
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let value = "";
+  let insideQuotes = false;
 
-  const url =
-    addCacheBuster(
-      MAIN_CSV_URL
-    );
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    const next = text[i + 1];
+
+    if (char === '"') {
+      if (insideQuotes && next === '"') {
+        value += '"';
+        i++;
+      } else {
+        insideQuotes = !insideQuotes;
+      }
+
+      continue;
+    }
+
+    if (char === "," && !insideQuotes) {
+      row.push(value);
+      value = "";
+      continue;
+    }
+
+    if ((char === "\n" || char === "\r") && !insideQuotes) {
+      if (char === "\r" && next === "\n") {
+        i++;
+      }
+
+      row.push(value);
+      value = "";
+
+      if (row.some(cell => String(cell).trim() !== "")) {
+        rows.push(row);
+      }
+
+      row = [];
+      continue;
+    }
+
+    value += char;
+  }
+
+  if (value !== "" || row.length > 0) {
+    row.push(value);
+
+    if (row.some(cell => String(cell).trim() !== "")) {
+      rows.push(row);
+    }
+  }
+
+  return rows;
+}
 
 
-  const response =
-    await fetch(url);
+/* =========================================================
+   LOAD MAIN SHEET
+========================================================= */
 
+async function loadMainSheet() {
+
+  statusEl.textContent = "กำลังโหลดข้อมูล...";
+
+  const response = await fetch(
+    MAIN_CSV_URL + "&t=" + Date.now()
+  );
 
   if (!response.ok) {
-
     throw new Error(
-      "โหลด main ไม่สำเร็จ"
+      `โหลด main sheet ไม่สำเร็จ: HTTP ${response.status}`
     );
-
   }
 
+  const csvText = await response.text();
+  const rows = parseCsv(csvText);
 
-  const csv =
-    await response.text();
-
-
-  mainRows =
-    csvToObjects(csv);
-
-
-  if (
-    !mainRows.length
-  ) {
-
-    throw new Error(
-      "main ไม่มีข้อมูล"
-    );
-
+  if (!rows.length) {
+    throw new Error("main sheet ไม่มีข้อมูล");
   }
 
+  const headers = rows[0].map(
+    h => String(h).trim().toLowerCase()
+  );
 
-  /*
-   * ตรวจ column
-   */
+  const topicIndex = headers.indexOf("topic");
+  const accNameIndex = headers.indexOf("acc_name");
+  const linkPostIndex = headers.indexOf("link_post");
+  const tweetIdIndex = headers.indexOf("tweet_id");
 
-  const requiredColumns = [
-    "Topic",
-    "acc_name",
-    "link_post",
-    "tweet_id"
+  if (topicIndex === -1) {
+    throw new Error("main ไม่มี column: Topic");
+  }
+
+  if (accNameIndex === -1) {
+    throw new Error("main ไม่มี column: acc_name");
+  }
+
+  if (tweetIdIndex === -1) {
+    throw new Error("main ไม่มี column: tweet_id");
+  }
+
+  mainRows = rows
+    .slice(1)
+    .map(row => ({
+      topic: String(row[topicIndex] ?? "").trim(),
+      acc_name: String(row[accNameIndex] ?? "").trim(),
+      link_post: String(row[linkPostIndex] ?? "").trim(),
+      tweet_id: String(row[tweetIdIndex] ?? "").trim()
+    }))
+    .filter(row => row.topic && row.tweet_id);
+
+  statusEl.textContent = "";
+
+  populateTopics();
+}
+
+
+/* =========================================================
+   TOPIC
+========================================================= */
+
+function populateTopics() {
+
+  const topics = [
+    ...new Set(
+      mainRows
+        .map(row => row.topic)
+        .filter(Boolean)
+    )
   ];
 
-
-  for (
-    const column
-    of requiredColumns
-  ) {
-
-    if (
-      !(column in mainRows[0])
-    ) {
-
-      throw new Error(
-        `main ไม่มี column: ${column}`
-      );
-
-    }
-
-  }
-
-}
-
-
-
-/* =========================================================
-   BUILD TOPICS
-========================================================= */
-
-function buildTopics() {
-
-  const topics =
-    [
-      ...new Set(
-        mainRows
-          .map(row =>
-            row.Topic.trim()
-          )
-          .filter(Boolean)
+  topicSelect.innerHTML =
+    `<option value="">เลือก Topic</option>` +
+    topics
+      .map(topic =>
+        `<option value="${escapeHtml(topic)}">
+          ${escapeHtml(topic)}
+        </option>`
       )
-    ];
-
-
-  topics.sort();
-
-
-  topics.forEach(
-    topic => {
-
-      const option =
-        document.createElement(
-          "option"
-        );
-
-
-      option.value =
-        topic;
-
-
-      option.textContent =
-        topic;
-
-
-      topicSelect.appendChild(
-        option
-      );
-
-    }
-  );
-
+      .join("");
 }
 
 
+topicSelect.addEventListener("change", async () => {
 
-/* =========================================================
-   TOPIC CHANGE
-========================================================= */
+  selectedTopic = topicSelect.value;
 
-topicSelect.addEventListener(
-  "change",
-  () => {
+  childSheetCache.clear();
+  usedMessageCache.clear();
 
-    selectedTopic =
-      topicSelect.value;
-
-
-    if (
-      !selectedTopic
-    ) {
-
-      tweetList.innerHTML = `
-        <div class="empty">
-          กรุณาเลือก Topic
-        </div>
-      `;
-
-      return;
-
-    }
-
-
-    renderTweetCards();
-
-  }
-);
-
-
-
-/* =========================================================
-   RENDER TWEET CARDS
-========================================================= */
-
-function renderTweetCards() {
-
-  tweetList.innerHTML = "";
-
-
-  /*
-   * filter Topic
-   */
-
-  const topicRows =
-    mainRows.filter(
-      row =>
-        row.Topic.trim() ===
-        selectedTopic
-    );
-
-
-  /*
-   * Tweet ID ไม่ซ้ำ
-   */
-
-  const uniqueTweets =
-    new Map();
-
-
-  topicRows.forEach(
-    row => {
-
-      const tweetId =
-        row.tweet_id.trim();
-
-
-      if (!tweetId) {
-        return;
-      }
-
-
-      if (
-        !uniqueTweets.has(
-          tweetId
-        )
-      ) {
-
-        uniqueTweets.set(
-          tweetId,
-          row
-        );
-
-      }
-
-    }
-  );
-
-
-  /*
-   * ไม่มี Tweet
-   */
-
-  if (
-    uniqueTweets.size === 0
-  ) {
-
-    tweetList.innerHTML = `
-      <div class="empty">
-        ไม่พบ Tweet ใน Topic นี้
-      </div>
-    `;
-
+  if (!selectedTopic) {
+    cardsContainer.innerHTML = "";
     return;
-
   }
 
-
-  /*
-   * สร้าง card
-   */
-
-  uniqueTweets.forEach(
-    tweet => {
-
-      const card =
-        createTweetCard(
-          tweet
-        );
-
-
-      tweetList.appendChild(
-        card
-      );
-
-
-      /*
-       * โหลดข้อมูลของ Tweet
-       * เพื่อเอาจำนวน message
-       */
-
-      loadTweetDataForCard(
-        card,
-        tweet.tweet_id.trim()
-      );
-
-    }
-  );
-
-}
-
+  await renderTweetCards();
+});
 
 
 /* =========================================================
-   CREATE TWEET CARD
+   GET UNIQUE TWEETS
 ========================================================= */
 
-function createTweetCard(
-  tweet
-) {
+function getUniqueTweets(topic) {
 
-  const card =
-    document.createElement(
-      "div"
-    );
+  const map = new Map();
 
+  for (const row of mainRows) {
 
-  card.className =
-    "tweet-card";
-
-
-  card.dataset.tweetId =
-    tweet.tweet_id.trim();
-
-
-  /*
-   * Account
-   */
-
-  const account =
-    document.createElement(
-      "div"
-    );
-
-  account.className =
-    "account-name";
-
-  account.textContent =
-    tweet.acc_name ||
-    "Unknown";
-
-
-  /*
-   * Message
-   */
-
-  const message =
-    document.createElement(
-      "div"
-    );
-
-  message.className =
-    "message-box";
-
-  message.textContent =
-    "กำลังโหลดข้อความ...";
-
-
-  /*
-   * Random
-   */
-
-  const randomButton =
-    document.createElement(
-      "button"
-    );
-
-  randomButton.className =
-    "random-btn";
-
-  randomButton.textContent =
-    "🎲 สุ่มข้อความ";
-
-
-  /*
-   * Use
-   */
-
-  const useButton =
-    document.createElement(
-      "button"
-    );
-
-  useButton.className =
-    "use-btn";
-
-  useButton.textContent =
-    "ใช้ข้อความนี้";
-
-  useButton.disabled =
-    true;
-
-
-  /*
-   * Reply
-   */
-
-  const replyButton =
-    document.createElement(
-      "a"
-    );
-
-  replyButton.className =
-    "reply-btn disabled";
-
-  replyButton.textContent =
-    "Reply";
-
-  replyButton.target =
-    "_blank";
-
-  replyButton.rel =
-    "noopener noreferrer";
-
-
-  /*
-   * Remaining
-   */
-
-  const remaining =
-    document.createElement(
-      "div"
-    );
-
-  remaining.className =
-    "remaining";
-
-  remaining.textContent =
-    "message ที่เหลือ -/-";
-
-
-  /*
-   * Tweet ID
-   */
-
-  const tweetId =
-    document.createElement(
-      "div"
-    );
-
-  tweetId.className =
-    "tweet-id";
-
-  tweetId.textContent =
-    maskTweetId(
-      tweet.tweet_id.trim()
-    );
-
-
-  /*
-   * Status
-   */
-
-  const status =
-    document.createElement(
-      "div"
-    );
-
-  status.className =
-    "status";
-
-
-  /*
-   * ประกอบ Card
-   */
-
-  card.appendChild(
-    account
-  );
-
-  card.appendChild(
-    message
-  );
-
-  card.appendChild(
-    randomButton
-  );
-
-  card.appendChild(
-    useButton
-  );
-
-  card.appendChild(
-    replyButton
-  );
-
-  card.appendChild(
-    remaining
-  );
-
-  card.appendChild(
-    tweetId
-  );
-
-  card.appendChild(
-    status
-  );
-
-
-  /*
-   * เก็บ element reference
-   */
-
-  card._ui = {
-
-    account,
-    message,
-    randomButton,
-    useButton,
-    replyButton,
-    remaining,
-    tweetId,
-    status
-
-  };
-
-
-  /*
-   * -----------------------------------------
-   * Random click
-   * -----------------------------------------
-   */
-
-  randomButton.addEventListener(
-    "click",
-    async () => {
-
-      await randomMessage(
-        card,
-        tweet.tweet_id.trim()
-      );
-
+    if (row.topic !== topic) {
+      continue;
     }
-  );
 
+    const tweetId = row.tweet_id;
 
-  /*
-   * -----------------------------------------
-   * Use click
-   * -----------------------------------------
-   */
-
-  useButton.addEventListener(
-    "click",
-    async () => {
-
-      await useCurrentMessage(
-        card,
-        tweet.tweet_id.trim()
-      );
-
+    if (!map.has(tweetId)) {
+      map.set(tweetId, {
+        tweet_id: tweetId,
+        acc_name: row.acc_name,
+        link_post: row.link_post
+      });
     }
+  }
+
+  return [...map.values()];
+}
+
+
+/* =========================================================
+   RENDER CARDS
+========================================================= */
+
+async function renderTweetCards() {
+
+  cardsContainer.innerHTML = "";
+
+  const tweets = getUniqueTweets(selectedTopic);
+
+  if (!tweets.length) {
+    cardsContainer.innerHTML =
+      `<div class="empty">ไม่พบ Tweet ใน Topic นี้</div>`;
+    return;
+  }
+
+  for (const tweet of tweets) {
+
+    const card = createTweetCard(tweet);
+
+    cardsContainer.appendChild(card);
+
+    loadCardData(card, tweet);
+  }
+}
+
+
+/* =========================================================
+   CREATE CARD
+========================================================= */
+
+function createTweetCard(tweet) {
+
+  const card = document.createElement("div");
+
+  card.className = "card";
+
+  card.dataset.tweetId = tweet.tweet_id;
+
+  card.innerHTML = `
+    <div class="account">
+      @${escapeHtml(tweet.acc_name)}
+    </div>
+
+    <div class="message-wrapper">
+
+      <button
+        class="copy-btn"
+        type="button"
+        disabled
+      >
+        📋 Copy
+      </button>
+
+      <div class="message">
+        กำลังโหลด...
+      </div>
+
+    </div>
+
+    <button
+      class="random-btn"
+      type="button"
+    >
+      🎲 สุ่มข้อความ
+    </button>
+
+    <button
+      class="reply-btn"
+      type="button"
+      disabled
+    >
+      Reply
+    </button>
+
+    <div class="remaining">
+      message ที่เหลือ -
+    </div>
+
+    <div class="tweet-id">
+      ${escapeHtml(maskTweetId(tweet.tweet_id))}
+    </div>
+  `;
+
+  const randomBtn =
+    card.querySelector(".random-btn");
+
+  const replyBtn =
+    card.querySelector(".reply-btn");
+
+  const copyBtn =
+    card.querySelector(".copy-btn");
+
+  randomBtn.addEventListener(
+    "click",
+    () => randomAndClaim(card, tweet)
   );
 
+  replyBtn.addEventListener(
+    "click",
+    () => replyTweet(card, tweet)
+  );
+
+  copyBtn.addEventListener(
+    "click",
+    () => copyCurrentMessage(card)
+  );
 
   return card;
-
 }
 
 
-
 /* =========================================================
-   LOAD TWEET DATA
+   LOAD CARD DATA
 ========================================================= */
 
-async function loadTweetDataForCard(
-  card,
-  tweetId
-) {
+async function loadCardData(card, tweet) {
+
+  const messageEl =
+    card.querySelector(".message");
 
   try {
 
-    /*
-     * โหลด message sheet
-     */
-
-    const data =
-      await loadMessageSheet(
-        tweetId
-      );
-
-
-    /*
-     * โหลด used
-     */
+    const messages =
+      await loadChildSheet(tweet.tweet_id);
 
     const usedIds =
-      await getUsedMessageIds(
-        tweetId
-      );
-
-
-    /*
-     * update count
-     */
+      await getUsedMessageIds(tweet.tweet_id);
 
     updateRemaining(
       card,
-      data,
-      usedIds
+      messages.length,
+      messages.length - usedIds.size
     );
 
-
-    /*
-     * ถ้ามีข้อความ
-     */
-
-    if (
-      data.messages.length
-    ) {
-
-      card._ui.message.textContent =
-        "กด 🎲 สุ่มข้อความ";
-
+    if (!messages.length) {
+      messageEl.textContent =
+        "ไม่มีข้อความ";
     }
 
-  }
-
-  catch (error) {
+  } catch (error) {
 
     console.error(error);
 
-    card._ui.message.textContent =
+    messageEl.textContent =
       "โหลดข้อความไม่สำเร็จ";
 
-    card._ui.randomButton.disabled =
-      true;
-
-    card._ui.status.textContent =
-      error.message;
-
+    messageEl.classList.add("error");
   }
-
 }
 
 
-
 /* =========================================================
-   LOAD MESSAGE SHEET
+   LOAD CHILD SHEET
 ========================================================= */
 
-async function loadMessageSheet(
-  tweetId
-) {
+async function loadChildSheet(tweetId) {
 
-  /*
-   * ใช้ cache
-   */
+  const key = String(tweetId);
 
-  if (
-    messageCache.has(
-      tweetId
-    )
-  ) {
-
-    return messageCache.get(
-      tweetId
-    );
-
+  if (childSheetCache.has(key)) {
+    return childSheetCache.get(key);
   }
-
-
-  /*
-   * Sheet name = tweet ID
-   */
-
-  const sheetName =
-    encodeURIComponent(
-      tweetId
-    );
-
-
-  /*
-   * Google Visualization
-   */
 
   const url =
-    `https://docs.google.com/spreadsheets/d/` +
-    `${SPREADSHEET_ID}` +
+    `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}` +
     `/gviz/tq?tqx=out:csv` +
-    `&sheet=${sheetName}` +
+    `&sheet=${encodeURIComponent(tweetId)}` +
     `&t=${Date.now()}`;
 
-
-  const response =
-    await fetch(url);
-
+  const response = await fetch(url);
 
   if (!response.ok) {
-
     throw new Error(
-      `โหลด Sheet ${tweetId} ไม่สำเร็จ`
+      `โหลด sheet ${tweetId} ไม่สำเร็จ`
     );
+  }
 
+  const csvText = await response.text();
+
+  const rows = parseCsv(csvText);
+
+  if (!rows.length) {
+    throw new Error(
+      `Sheet ${tweetId} ไม่มีข้อมูล`
+    );
   }
 
 
-  const csv =
-    await response.text();
+  /* ---------------------------------------------
+     หา All_message
+  --------------------------------------------- */
 
+  let totalFromSheet = null;
 
-  const parsed =
-    parseMessageSheet(
-      csv,
-      tweetId
-    );
+  for (const row of rows) {
 
-
-  messageCache.set(
-    tweetId,
-    parsed
-  );
-
-
-  return parsed;
-
-}
-
-
-
-/* =========================================================
-   PARSE MESSAGE SHEET
-========================================================= */
-
-function parseMessageSheet(
-  csv,
-  expectedTweetId
-) {
-
-  const rows =
-    parseCSV(csv);
-
-
-  if (
-    !rows.length
-  ) {
-
-    throw new Error(
-      `Sheet ${expectedTweetId} ไม่มีข้อมูล`
-    );
-
-  }
-
-
-  /*
-   * -----------------------------------------
-   * หา All_message
-   *
-   * A1 = All_message
-   * B1 = 5
-   * -----------------------------------------
-   */
-
-  let totalCount =
-    null;
-
-
-  for (
-    const row
-    of rows
-  ) {
+    const firstCell =
+      String(row[0] ?? "").trim();
 
     if (
-      String(row[0]).trim()
-      ===
-      "All_message"
+      firstCell.toLowerCase() ===
+      "all_message"
     ) {
 
       const value =
-        Number(
-          String(
-            row[1] || ""
-          ).trim()
-        );
+        String(row[1] ?? "").trim();
 
+      const parsed =
+        Number(value);
 
-      if (
-        Number.isFinite(
-          value
-        )
-      ) {
-
-        totalCount =
-          value;
-
+      if (!Number.isNaN(parsed)) {
+        totalFromSheet = parsed;
       }
 
       break;
-
     }
-
   }
 
 
-  /*
-   * -----------------------------------------
-   * หา header
-   *
-   * message_id | tweet_id | text | status
-   * -----------------------------------------
-   */
+  /* ---------------------------------------------
+     หา Header
+  --------------------------------------------- */
 
-  let headerIndex =
-    -1;
+  let headerIndex = -1;
 
+  let messageIdIndex = -1;
+  let tweetIdIndex = -1;
+  let textIndex = -1;
+  let statusIndex = -1;
 
-  let headers = [];
+  for (let i = 0; i < rows.length; i++) {
 
-
-  for (
-    let i = 0;
-    i < rows.length;
-    i++
-  ) {
-
-    const normalized =
+    const headers =
       rows[i].map(
-        value =>
-          String(value)
-            .replace(
-              /^\uFEFF/,
-              ""
-            )
-            .trim()
+        h => String(h).trim().toLowerCase()
       );
 
+    const mi =
+      headers.indexOf("message_id");
+
+    const ti =
+      headers.indexOf("tweet_id");
+
+    const tx =
+      headers.indexOf("text");
 
     if (
-      normalized.includes(
-        "message_id"
-      ) &&
-      normalized.includes(
-        "tweet_id"
-      ) &&
-      normalized.includes(
-        "text"
-      )
+      mi !== -1 &&
+      ti !== -1 &&
+      tx !== -1
     ) {
 
-      headerIndex =
-        i;
+      headerIndex = i;
 
-      headers =
-        normalized;
+      messageIdIndex = mi;
+      tweetIdIndex = ti;
+      textIndex = tx;
+      statusIndex =
+        headers.indexOf("status");
 
       break;
-
     }
-
   }
 
-
-  if (
-    headerIndex === -1
-  ) {
-
+  if (headerIndex === -1) {
     throw new Error(
-      `ไม่พบ header message_id / tweet_id / text ใน Sheet ${expectedTweetId}`
+      `ไม่พบ header message_id / tweet_id / text ใน sheet ${tweetId}`
     );
-
   }
 
 
-  /*
-   * -----------------------------------------
-   * column index
-   * -----------------------------------------
-   */
-
-  const messageIdIndex =
-    headers.indexOf(
-      "message_id"
-    );
-
-
-  const tweetIdIndex =
-    headers.indexOf(
-      "tweet_id"
-    );
-
-
-  const textIndex =
-    headers.indexOf(
-      "text"
-    );
-
-
-  /*
-   * -----------------------------------------
-   * data rows
-   * -----------------------------------------
-   */
+  /* ---------------------------------------------
+     Parse messages
+  --------------------------------------------- */
 
   const messages = [];
-
 
   for (
     let i = headerIndex + 1;
@@ -1598,461 +797,115 @@ function parseMessageSheet(
     i++
   ) {
 
-    const row =
-      rows[i];
-
+    const row = rows[i];
 
     const messageId =
       String(
-        row[messageIdIndex]
-        || ""
+        row[messageIdIndex] ?? ""
       ).trim();
 
-
-    const tweetId =
+    const rowTweetId =
       String(
-        row[tweetIdIndex]
-        || ""
+        row[tweetIdIndex] ?? ""
       ).trim();
-
-
-    const rawText =
-      String(
-        row[textIndex]
-        || ""
-      );
-
 
     const text =
       normalizeText(
-        rawText
+        row[textIndex] ?? ""
       );
 
-
-    /*
-     * ข้าม row ว่าง
-     */
-
-    if (
-      !messageId ||
-      !tweetId ||
-      !text
-    ) {
-
+    if (!messageId || !text) {
       continue;
-
     }
-
-
-    /*
-     * ตรวจ Tweet ID
-     */
 
     if (
-      tweetId !==
-      expectedTweetId
+      rowTweetId &&
+      rowTweetId !== key
     ) {
-
-      throw new Error(
-        `พบ tweet_id ${tweetId} ไม่ตรงกับ Sheet ${expectedTweetId}`
-      );
-
+      continue;
     }
-
 
     messages.push({
-
-      message_id:
-        messageId,
-
-      tweet_id:
-        tweetId,
-
-      text:
-        text
-
+      message_id: messageId,
+      tweet_id: rowTweetId || key,
+      text
     });
-
   }
 
 
   /*
-   * ถ้า B1 ไม่มีค่า
-   * ใช้จำนวนข้อมูลจริง
-   */
+     B1 = จำนวนทั้งหมดใน Sheet
 
-  if (
-    totalCount === null
-  ) {
+     แต่ source ที่ใช้สุ่มจริง ๆ
+     ให้ใช้ rows ที่ parse ได้
+  */
 
-    totalCount =
-      messages.length;
+  messages.totalFromSheet =
+    totalFromSheet ?? messages.length;
 
-  }
+  childSheetCache.set(key, messages);
 
-
-  const result = {
-
-    totalCount:
-      totalCount,
-
-    messages:
-      messages
-
-  };
-
-
-  return result;
-
+  return messages;
 }
 
 
-
 /* =========================================================
-   RANDOM MESSAGE
+   SUPABASE - GET USED MESSAGE IDS
 ========================================================= */
 
-async function randomMessage(
-  card,
-  tweetId
-) {
+async function getUsedMessageIds(tweetId) {
 
-  const ui =
-    card._ui;
+  const key = String(tweetId);
 
+  if (usedMessageCache.has(key)) {
+    return usedMessageCache.get(key);
+  }
 
-  ui.randomButton.disabled =
-    true;
+  const url =
+    `${SUPABASE_URL}/rest/v1/used_messages` +
+    `?select=message_id` +
+    `&tweet_id=eq.${encodeURIComponent(key)}`;
 
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "apikey": SUPABASE_KEY,
+      "Authorization":
+        `Bearer ${SUPABASE_KEY}`
+    }
+  });
 
-  ui.randomButton.textContent =
-    "กำลังสุ่ม...";
+  if (!response.ok) {
 
+    const errorText =
+      await response.text();
 
-  ui.useButton.disabled =
-    true;
+    throw new Error(
+      `Supabase load used messages error: ${errorText}`
+    );
+  }
 
+  const data =
+    await response.json();
 
-  ui.replyButton.classList.add(
-    "disabled"
+  const usedIds =
+    new Set(
+      data.map(row =>
+        String(row.message_id)
+      )
+    );
+
+  usedMessageCache.set(
+    key,
+    usedIds
   );
 
-
-  ui.status.textContent =
-    "";
-
-
-  try {
-
-    /*
-     * โหลด message
-     */
-
-    const data =
-      await loadMessageSheet(
-        tweetId
-      );
-
-
-    /*
-     * โหลดรายการใช้แล้ว
-     */
-
-    const usedIds =
-      await getUsedMessageIds(
-        tweetId
-      );
-
-
-    /*
-     * filter เหลือ
-     */
-
-    const available =
-      data.messages.filter(
-        message =>
-          !usedIds.has(
-            String(
-              message.message_id
-            )
-          )
-      );
-
-
-    /*
-     * Update counter
-     */
-
-    updateRemaining(
-      card,
-      data,
-      usedIds
-    );
-
-
-    /*
-     * หมดแล้ว
-     */
-
-    if (
-      !available.length
-    ) {
-
-      ui.message.textContent =
-        "ข้อความถูกใช้หมดแล้ว";
-
-      ui.status.textContent =
-        "ไม่มีข้อความเหลือให้สุ่ม";
-
-      return;
-
-    }
-
-
-    /*
-     * Random
-     */
-
-    const index =
-      Math.floor(
-        Math.random() *
-        available.length
-      );
-
-
-    const selected =
-      available[index];
-
-
-    /*
-     * เก็บ selected message
-     */
-
-    card._selectedMessage =
-      selected;
-
-
-    /*
-     * แสดงข้อความ
-     */
-
-    ui.message.textContent =
-      selected.text;
-
-
-    /*
-     * X Reply URL
-     *
-     * ใช้ in_reply_to
-     */
-
-    const replyUrl =
-      createReplyUrl(
-        tweetId,
-        selected.text
-      );
-
-
-    ui.replyButton.href =
-      replyUrl;
-
-
-    /*
-     * เปิดปุ่ม
-     */
-
-    ui.replyButton.classList.remove(
-      "disabled"
-    );
-
-
-    ui.useButton.disabled =
-      false;
-
-
-    ui.status.textContent =
-      "ข้อความนี้ยังไม่ได้บันทึกว่าใช้แล้ว";
-
-
-  }
-
-  catch (error) {
-
-    console.error(error);
-
-    ui.message.textContent =
-      "สุ่มข้อความไม่สำเร็จ";
-
-    ui.status.textContent =
-      error.message;
-
-  }
-
-  finally {
-
-    ui.randomButton.disabled =
-      false;
-
-    ui.randomButton.textContent =
-      "🎲 สุ่มข้อความ";
-
-  }
-
+  return usedIds;
 }
 
 
-
 /* =========================================================
-   USE CURRENT MESSAGE
-========================================================= */
-
-async function useCurrentMessage(
-  card,
-  tweetId
-) {
-
-  const ui =
-    card._ui;
-
-
-  const selected =
-    card._selectedMessage;
-
-
-  if (
-    !selected
-  ) {
-
-    ui.status.textContent =
-      "กรุณาสุ่มข้อความก่อน";
-
-    return;
-
-  }
-
-
-  ui.useButton.disabled =
-    true;
-
-
-  ui.randomButton.disabled =
-    true;
-
-
-  ui.status.textContent =
-    "กำลังบันทึก...";
-
-
-  try {
-
-    /*
-     * Atomic claim
-     */
-
-    const claimed =
-      await claimMessage(
-        tweetId,
-        selected.message_id
-      );
-
-
-    /*
-     * มีคนอื่นใช้ไปก่อนแล้ว
-     */
-
-    if (!claimed) {
-
-      ui.status.textContent =
-        "ข้อความนี้ถูกคนอื่นใช้ไปแล้ว กรุณาสุ่มใหม่";
-
-
-      card._selectedMessage =
-        null;
-
-
-      ui.useButton.disabled =
-        true;
-
-
-      ui.replyButton.classList.add(
-        "disabled"
-      );
-
-
-      /*
-       * refresh counter
-       */
-
-      await refreshCardCounter(
-        card,
-        tweetId
-      );
-
-
-      return;
-
-    }
-
-
-    /*
-     * สำเร็จ
-     */
-
-    ui.status.textContent =
-      "✓ ใช้ข้อความนี้แล้ว";
-
-
-    ui.useButton.textContent =
-      "✓ ใช้แล้ว";
-
-
-    /*
-     * ล้าง selected
-     */
-
-    card._selectedMessage =
-      null;
-
-
-    /*
-     * Refresh counter
-     */
-
-    await refreshCardCounter(
-      card,
-      tweetId
-    );
-
-
-  }
-
-  catch (error) {
-
-    console.error(error);
-
-    ui.status.textContent =
-      "บันทึกไม่สำเร็จ: " +
-      error.message;
-
-
-    ui.useButton.disabled =
-      false;
-
-  }
-
-  finally {
-
-    ui.randomButton.disabled =
-      false;
-
-  }
-
-}
-
-
-
-/* =========================================================
-   CLAIM MESSAGE
+   SUPABASE - CLAIM MESSAGE
 ========================================================= */
 
 async function claimMessage(
@@ -2060,557 +913,457 @@ async function claimMessage(
   messageId
 ) {
 
-  const response =
-    await fetch(
-      `${SUPABASE_URL}/rest/v1/rpc/claim_message`,
-      {
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/rpc/claim_message`,
+    {
+      method: "POST",
 
-        method:
-          "POST",
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization":
+          `Bearer ${SUPABASE_KEY}`,
+        "Content-Type":
+          "application/json"
+      },
 
-        headers: {
+      body: JSON.stringify({
+        p_tweet_id:
+          String(tweetId),
 
-          "apikey":
-            SUPABASE_KEY,
+        p_message_id:
+          String(messageId)
+      })
+    }
+  );
 
-          "Authorization":
-            `Bearer ${SUPABASE_KEY}`,
+  if (!response.ok) {
 
-          "Content-Type":
-            "application/json"
-
-        },
-
-        body:
-          JSON.stringify({
-
-            p_tweet_id:
-              String(
-                tweetId
-              ),
-
-            p_message_id:
-              String(
-                messageId
-              )
-
-          })
-
-      }
-    );
-
-
-  if (
-    !response.ok
-  ) {
-
-    const text =
+    const errorText =
       await response.text();
 
-
     throw new Error(
-      `Supabase claim error: ${text}`
+      `Supabase claim error: ${errorText}`
     );
-
   }
 
-
-  const result =
-    await response.json();
-
-
-  return result === true;
-
+  return await response.json();
 }
 
 
-
 /* =========================================================
-   GET USED MESSAGE IDS
+   RANDOM + CLAIM
 ========================================================= */
 
-async function getUsedMessageIds(
-  tweetId
+async function randomAndClaim(
+  card,
+  tweet
 ) {
+
+  const randomBtn =
+    card.querySelector(".random-btn");
+
+  const replyBtn =
+    card.querySelector(".reply-btn");
+
+  const copyBtn =
+    card.querySelector(".copy-btn");
+
+  const messageEl =
+    card.querySelector(".message");
+
+  randomBtn.disabled = true;
+  replyBtn.disabled = true;
+  copyBtn.disabled = true;
+
+  messageEl.classList.remove("error");
+
+  try {
+
+    const messages =
+      await loadChildSheet(
+        tweet.tweet_id
+      );
+
+
+    /*
+       ต้องดึง used ใหม่ทุกครั้ง
+
+       เพราะระหว่างที่หน้าเว็บเปิดอยู่
+       user คนอื่นอาจ claim message เพิ่ม
+    */
+
+    const usedIds =
+      await getFreshUsedMessageIds(
+        tweet.tweet_id
+      );
+
+
+    let available =
+      messages.filter(
+        message =>
+          !usedIds.has(
+            String(message.message_id)
+          )
+      );
+
+
+    /*
+       ถ้าไม่มี message เหลือ
+    */
+
+    if (!available.length) {
+
+      messageEl.textContent =
+        "ข้อความหมดแล้ว";
+
+      updateRemaining(
+        card,
+        messages.length,
+        0
+      );
+
+      return;
+    }
+
+
+    /*
+       สุ่ม + claim
+
+       ถ้าโดนคนอื่น claim ก่อน
+       จะตัดตัวนั้นออกแล้วสุ่มใหม่
+    */
+
+    let claimedMessage = null;
+
+    while (available.length > 0) {
+
+      const randomIndex =
+        Math.floor(
+          Math.random() * available.length
+        );
+
+      const candidate =
+        available[randomIndex];
+
+      const claimed =
+        await claimMessage(
+          tweet.tweet_id,
+          candidate.message_id
+        );
+
+
+      if (claimed === true) {
+
+        claimedMessage = candidate;
+
+        break;
+      }
+
+
+      /*
+         มีคน claim ไปก่อนแล้ว
+         เอา candidate ออกจาก pool
+         แล้วสุ่มใหม่
+      */
+
+      available.splice(
+        randomIndex,
+        1
+      );
+    }
+
+
+    /*
+       ไม่มีตัวไหน claim ได้
+    */
+
+    if (!claimedMessage) {
+
+      usedMessageCache.delete(
+        String(tweet.tweet_id)
+      );
+
+      messageEl.textContent =
+        "มีคนใช้งานพร้อมกัน ลองสุ่มใหม่อีกครั้ง";
+
+      return;
+    }
+
+
+    /*
+       เก็บ current message
+       ไว้บน card เท่านั้น
+    */
+
+    card.currentMessage =
+      claimedMessage.text;
+
+
+    card.currentMessageId =
+      claimedMessage.message_id;
+
+
+    messageEl.textContent =
+      claimedMessage.text;
+
+
+    /*
+       Update local cache
+    */
+
+    const cacheKey =
+      String(tweet.tweet_id);
+
+    const cachedUsed =
+      usedMessageCache.get(cacheKey);
+
+    if (cachedUsed) {
+
+      cachedUsed.add(
+        String(
+          claimedMessage.message_id
+        )
+      );
+    }
+
+
+    const remaining =
+      available.length - 1;
+
+
+    updateRemaining(
+      card,
+      messages.length,
+      remaining
+    );
+
+
+    replyBtn.disabled = false;
+    copyBtn.disabled = false;
+
+  } catch (error) {
+
+    console.error(error);
+
+    messageEl.textContent =
+      error.message || "เกิดข้อผิดพลาด";
+
+    messageEl.classList.add("error");
+
+  } finally {
+
+    randomBtn.disabled = false;
+  }
+}
+
+
+/* =========================================================
+   FRESH USED IDS
+========================================================= */
+
+async function getFreshUsedMessageIds(tweetId) {
+
+  /*
+     สำคัญ:
+     ไม่ใช้ cache ตอนกดสุ่ม
+
+     เพราะ user คนอื่นอาจเพิ่ง claim
+  */
+
+  const key = String(tweetId);
 
   const url =
     `${SUPABASE_URL}/rest/v1/used_messages` +
     `?select=message_id` +
-    `&tweet_id=eq.${encodeURIComponent(
-      tweetId
-    )}`;
+    `&tweet_id=eq.${encodeURIComponent(key)}`;
 
+  const response = await fetch(url, {
+    method: "GET",
 
-  const response =
-    await fetch(
-      url,
-      {
+    headers: {
+      "apikey": SUPABASE_KEY,
+      "Authorization":
+        `Bearer ${SUPABASE_KEY}`
+    }
+  });
 
-        method:
-          "GET",
+  if (!response.ok) {
 
-        headers: {
-
-          "apikey":
-            SUPABASE_KEY,
-
-          "Authorization":
-            `Bearer ${SUPABASE_KEY}`
-
-        }
-
-      }
-    );
-
-
-  if (
-    !response.ok
-  ) {
-
-    const text =
+    const errorText =
       await response.text();
 
-
     throw new Error(
-      `Supabase read error: ${text}`
+      `Supabase load used messages error: ${errorText}`
     );
-
   }
-
 
   const data =
     await response.json();
 
-
-  return new Set(
-    data.map(
-      row =>
-        String(
-          row.message_id
-        )
-    )
-  );
-
-}
-
-
-
-/* =========================================================
-   REFRESH COUNTER
-========================================================= */
-
-async function refreshCardCounter(
-  card,
-  tweetId
-) {
-
-  const data =
-    await loadMessageSheet(
-      tweetId
-    );
-
-
   const usedIds =
-    await getUsedMessageIds(
-      tweetId
+    new Set(
+      data.map(row =>
+        String(row.message_id)
+      )
     );
 
 
-  updateRemaining(
-    card,
-    data,
+  /*
+     Update cache ด้วย
+  */
+
+  usedMessageCache.set(
+    key,
     usedIds
   );
 
+  return usedIds;
 }
 
 
+/* =========================================================
+   COPY
+========================================================= */
+
+async function copyCurrentMessage(card) {
+
+  const text =
+    card.currentMessage;
+
+  if (!text) {
+    return;
+  }
+
+  const copyBtn =
+    card.querySelector(".copy-btn");
+
+  try {
+
+    await navigator.clipboard.writeText(
+      text
+    );
+
+    copyBtn.textContent =
+      "✓ Copied";
+
+    setTimeout(() => {
+
+      copyBtn.textContent =
+        "📋 Copy";
+
+    }, 1200);
+
+  } catch (error) {
+
+    console.error(error);
+
+    /*
+       fallback สำหรับบาง browser
+    */
+
+    const textarea =
+      document.createElement("textarea");
+
+    textarea.value = text;
+
+    document.body.appendChild(
+      textarea
+    );
+
+    textarea.select();
+
+    document.execCommand("copy");
+
+    textarea.remove();
+
+    copyBtn.textContent =
+      "✓ Copied";
+
+    setTimeout(() => {
+
+      copyBtn.textContent =
+        "📋 Copy";
+
+    }, 1200);
+  }
+}
+
 
 /* =========================================================
-   UPDATE REMAINING
+   REPLY
+========================================================= */
+
+function replyTweet(card, tweet) {
+
+  const text =
+    card.currentMessage;
+
+  if (!text) {
+    return;
+  }
+
+  const replyUrl =
+    createReplyUrl(
+      tweet.tweet_id,
+      text
+    );
+
+
+  /*
+     เปิด X Web Intent
+
+     ถ้ามี X app
+     มือถือสามารถส่งต่อไป X ได้
+  */
+
+  window.open(
+    replyUrl,
+    "_blank"
+  );
+}
+
+
+/* =========================================================
+   REMAINING
 ========================================================= */
 
 function updateRemaining(
   card,
-  data,
-  usedIds
+  total,
+  remaining
 ) {
 
-  const availableCount =
-    data.messages.filter(
-      message =>
-        !usedIds.has(
-          String(
-            message.message_id
-          )
-        )
-    ).length;
+  const remainingEl =
+    card.querySelector(".remaining");
 
-
-  card._ui.remaining.textContent =
-    `message ที่เหลือ ${availableCount}/${data.totalCount}`;
-
+  remainingEl.textContent =
+    `message ที่เหลือ ${remaining}/${total}`;
 }
 
 
-
 /* =========================================================
-   CREATE X REPLY URL
+   START
 ========================================================= */
 
-function createReplyUrl(
-  tweetId,
-  text
-) {
+(async function init() {
 
-  return (
-    "https://twitter.com/intent/tweet" +
-    "?in_reply_to=" +
-    encodeURIComponent(
-      tweetId
-    ) +
-    "&text=" +
-    encodeURIComponent(
-      text
-    )
-  );
+  try {
 
-}
+    await loadMainSheet();
 
+  } catch (error) {
 
+    console.error(error);
 
-/* =========================================================
-   MASK TWEET ID
-========================================================= */
+    statusEl.textContent =
+      error.message ||
+      "โหลดข้อมูลไม่สำเร็จ";
 
-function maskTweetId(
-  tweetId
-) {
-
-  const id =
-    String(
-      tweetId
-    );
-
-
-  if (
-    id.length <= 4
-  ) {
-
-    return `TW: ••••••••${id}`;
-
+    statusEl.classList.add("error");
   }
 
-
-  return (
-    "TW: ••••••••" +
-    id.slice(-4)
-  );
-
-}
-
-
-
-/* =========================================================
-   NORMALIZE TEXT
-========================================================= */
-
-function normalizeText(
-  text
-) {
-
-  return String(text)
-
-    .replace(
-      /<br\s*\/?>/gi,
-      "\n"
-    )
-
-    .trim();
-
-}
-
-
-
-/* =========================================================
-   CACHE BUSTER
-========================================================= */
-
-function addCacheBuster(
-  url
-) {
-
-  const separator =
-    url.includes("?")
-      ? "&"
-      : "?";
-
-
-  return (
-    url +
-    separator +
-    "t=" +
-    Date.now()
-  );
-
-}
-
-
-
-/* =========================================================
-   CSV → OBJECTS
-========================================================= */
-
-function csvToObjects(
-  csv
-) {
-
-  const rows =
-    parseCSV(csv);
-
-
-  if (
-    !rows.length
-  ) {
-
-    return [];
-
-  }
-
-
-  const headers =
-    rows[0].map(
-      header =>
-        String(
-          header
-        )
-          .replace(
-            /^\uFEFF/,
-            ""
-          )
-          .trim()
-    );
-
-
-  return rows
-    .slice(1)
-    .filter(
-      row =>
-        row.some(
-          value =>
-            String(
-              value
-            ).trim() !== ""
-        )
-    )
-    .map(
-      row => {
-
-        const object = {};
-
-
-        headers.forEach(
-          (
-            header,
-            index
-          ) => {
-
-            object[header] =
-              row[index] ||
-              "";
-
-          }
-        );
-
-
-        return object;
-
-      }
-    );
-
-}
-
-
-
-/* =========================================================
-   CSV PARSER
-========================================================= */
-
-function parseCSV(
-  csv
-) {
-
-  const rows = [];
-
-  let row = [];
-
-  let value = "";
-
-  let insideQuotes =
-    false;
-
-
-  for (
-    let i = 0;
-    i < csv.length;
-    i++
-  ) {
-
-    const char =
-      csv[i];
-
-
-    const next =
-      csv[i + 1];
-
-
-    /*
-     * escaped quote
-     */
-
-    if (
-      char === '"' &&
-      insideQuotes &&
-      next === '"'
-    ) {
-
-      value += '"';
-
-      i++;
-
-      continue;
-
-    }
-
-
-    /*
-     * quote
-     */
-
-    if (
-      char === '"'
-    ) {
-
-      insideQuotes =
-        !insideQuotes;
-
-      continue;
-
-    }
-
-
-    /*
-     * comma
-     */
-
-    if (
-      char === "," &&
-      !insideQuotes
-    ) {
-
-      row.push(
-        value
-      );
-
-      value = "";
-
-      continue;
-
-    }
-
-
-    /*
-     * newline
-     */
-
-    if (
-      (
-        char === "\n" ||
-        char === "\r"
-      ) &&
-      !insideQuotes
-    ) {
-
-      if (
-        char === "\r" &&
-        next === "\n"
-      ) {
-
-        i++;
-
-      }
-
-
-      row.push(
-        value
-      );
-
-      rows.push(
-        row
-      );
-
-
-      row = [];
-
-      value = "";
-
-      continue;
-
-    }
-
-
-    value +=
-      char;
-
-  }
-
-
-  /*
-   * final row
-   */
-
-  if (
-    value !== "" ||
-    row.length
-  ) {
-
-    row.push(
-      value
-    );
-
-
-    rows.push(
-      row
-    );
-
-  }
-
-
-  return rows;
-
-}
-
-
-
-/* =========================================================
-   ERROR
-========================================================= */
-
-function showError(
-  message
-) {
-
-  errorBox.textContent =
-    message;
-
-  errorBox.style.display =
-    "block";
-
-}
-
+})();
 </script>
 
-
 </body>
-
 </html>
