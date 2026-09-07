@@ -2,46 +2,49 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
+
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    content="width=device-width, initial-scale=1.0"
   />
 
   <title>GomGom Message</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     :root {
       --bg: #f6f4ef;
       --surface: #ffffff;
       --surface-soft: #faf9f6;
+
       --text: #181818;
       --muted: #77736c;
-      --border: #e7e2d9;
+
+      --border: #e6e1d8;
 
       --topic-bg: #fffaf0;
+      --topic-border: #eee4ce;
+
       --post-bg: #eef6ff;
+      --post-border: #dcecff;
+
       --reply-bg: #f3f8f1;
+      --reply-border: #dfecdc;
 
       --black: #111111;
-      --green: #3c8b55;
-      --green-soft: #eaf6ed;
 
       --hot: #e65353;
-      --hot-bg: #fff0f0;
-
       --high: #4d78c9;
-      --high-bg: #eef4ff;
-
       --normal: #b56d96;
-      --normal-bg: #fff1f8;
 
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --radius-sm: 10px;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -49,18 +52,16 @@
       background: var(--bg);
       color: var(--text);
       font-family:
+        Inter,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
         sans-serif;
-      -webkit-font-smoothing: antialiased;
     }
 
     button,
-    select {
+    select,
+    a {
       font: inherit;
     }
 
@@ -72,174 +73,170 @@
       width: 100%;
       max-width: 760px;
       margin: 0 auto;
-      padding: 18px 14px 48px;
+      padding: 16px 12px 40px;
     }
 
-    /* =========================
+    /* =====================================================
        HEADER
-    ========================= */
+    ===================================================== */
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
       margin-bottom: 14px;
     }
 
-    .brand-logo {
-      font-size: 25px;
-      line-height: 1;
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-elephant {
+      font-size: 23px;
     }
 
     .brand-name {
       font-size: 18px;
       font-weight: 800;
-      letter-spacing: -0.4px;
+      letter-spacing: -0.3px;
     }
 
     .brand-subtitle {
-      color: var(--muted);
       font-size: 11px;
-      margin-left: auto;
+      color: var(--muted);
     }
 
-    /* =========================
+    /* =====================================================
        PLATFORM
-    ========================= */
+    ===================================================== */
 
     .platform-tabs {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
       gap: 6px;
       margin-bottom: 12px;
     }
 
     .platform-tab {
+      flex: 1;
+      min-height: 34px;
+
       border: 1px solid var(--border);
+      border-radius: 9px;
+
       background: var(--surface);
-      border-radius: 11px;
-      padding: 9px 6px;
+
+      color: var(--muted);
+
       font-size: 12px;
       font-weight: 700;
-      color: var(--muted);
+
       cursor: pointer;
     }
 
     .platform-tab.active {
       background: var(--black);
       border-color: var(--black);
-      color: white;
+      color: #fff;
     }
 
     .platform-tab.disabled {
-      opacity: 0.45;
       cursor: not-allowed;
+      opacity: 0.45;
     }
 
-    /* =========================
+    /* =====================================================
        TOPIC
-    ========================= */
+    ===================================================== */
 
-    .topic-area {
-      margin-bottom: 12px;
-    }
-
-    .topic-select-wrap {
-      position: relative;
-    }
-
-    .topic-select {
-      width: 100%;
-      appearance: none;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      border-radius: var(--radius-md);
-      padding: 13px 40px 13px 14px;
-      font-size: 14px;
-      font-weight: 750;
-      color: var(--text);
-      outline: none;
-    }
-
-    .topic-select:focus {
-      border-color: #b9b3a8;
-    }
-
-    .topic-arrow {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    /* =========================
-       TOPIC DESCRIPTION
-    ========================= */
-
-    .topic-intro {
+    .topic-section {
       background: var(--topic-bg);
-      border: 1px solid #eee4ce;
-      border-radius: var(--radius-lg);
-      padding: 14px;
-      margin-bottom: 12px;
-    }
-
-    .topic-intro-label {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: #9a8663;
-      margin-bottom: 6px;
-    }
-
-    .topic-intro-title {
-      font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 5px;
-    }
-
-    .topic-intro-description {
-      color: #6e685e;
-      font-size: 12px;
-      line-height: 1.55;
-      white-space: pre-wrap;
-    }
-
-    /* =========================
-       SECTION
-    ========================= */
-
-    .section {
-      border-radius: 20px;
+      border: 1px solid var(--topic-border);
+      border-radius: var(--radius);
       padding: 12px;
       margin-bottom: 12px;
     }
 
-    .section.post-section {
+    .section-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .topic-select {
+      width: 100%;
+      min-height: 40px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #fff;
+      color: var(--text);
+
+      padding: 0 10px;
+
+      font-size: 13px;
+      font-weight: 700;
+      outline: none;
+    }
+
+    .topic-about {
+      margin-top: 10px;
+      padding-top: 9px;
+      border-top: 1px solid var(--topic-border);
+    }
+
+    .topic-about-title {
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .topic-description {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    /* =====================================================
+       SECTION
+    ===================================================== */
+
+    .content-section {
+      border-radius: var(--radius);
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid;
+    }
+
+    .post-section {
       background: var(--post-bg);
-      border: 1px solid #dcecff;
+      border-color: var(--post-border);
     }
 
-    .section.reply-section {
+    .reply-section {
       background: var(--reply-bg);
-      border: 1px solid #dfecdc;
+      border-color: var(--reply-border);
     }
 
-    .section-header {
+    .section-heading {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 2px 2px 9px;
+
+      margin-bottom: 8px;
     }
 
     .section-title {
       font-size: 13px;
-      font-weight: 850;
-      letter-spacing: 0.4px;
+      font-weight: 900;
+      letter-spacing: -0.2px;
     }
 
     .section-count {
@@ -247,139 +244,137 @@
       color: var(--muted);
     }
 
-    /* =========================
+    /* =====================================================
        POST CARD
-    ========================= */
+    ===================================================== */
 
     .post-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 13px;
+      border-radius: 11px;
+      padding: 9px;
+    }
+
+    .post-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+
+      margin-bottom: 6px;
     }
 
     .post-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 9px;
-    }
-
-    .account {
-      font-size: 12px;
-      font-weight: 750;
-    }
-
-    .tweet-id-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
       color: var(--muted);
-      text-decoration: none;
       font-size: 10px;
     }
 
-    .tweet-id-link:hover {
-      text-decoration: underline;
+    .remaining {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
     }
 
-    /* =========================
-       MESSAGE
-    ========================= */
+    /*
+      POST message box intentionally compact
+    */
+
+    .post-card .message-box {
+      height: auto;
+      min-height: 0;
+      max-height: 60px;
+
+      padding: 6px 9px;
+      margin-bottom: 6px;
+
+      font-size: 12px;
+      line-height: 1.4;
+
+      border-radius: 8px;
+
+      overflow-y: auto;
+      word-break: break-word;
+    }
 
     .message-box {
       background: var(--surface-soft);
       border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 11px 12px;
 
-      min-height: 0;
-      height: auto;
-      max-height: 240px;
+      padding: 9px;
+      border-radius: 9px;
 
-      overflow-y: auto;
+      font-size: 12px;
+      line-height: 1.5;
+
+      min-height: 46px;
+
       white-space: pre-wrap;
       word-break: break-word;
 
-      font-size: 13px;
-      line-height: 1.55;
-      color: var(--text);
-
-      margin-bottom: 10px;
+      overflow-y: auto;
     }
 
-    .message-placeholder {
-      color: #aaa59c;
-      font-style: italic;
+    .message-empty {
+      color: #aaa;
     }
 
-    /* =========================
-       ACTIONS
-    ========================= */
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
 
-    .action-row {
+    .button-row {
       display: flex;
-      align-items: center;
-      gap: 7px;
+      gap: 6px;
     }
 
-    .action-btn {
-      min-height: 34px;
-      border: 0;
-      border-radius: 9px;
-      padding: 7px 12px;
+    .btn {
+      min-height: 32px;
+
+      border-radius: 8px;
+      border: 1px solid var(--border);
+
+      padding: 0 11px;
+
       font-size: 11px;
       font-weight: 800;
+
       cursor: pointer;
+
       transition:
         transform 0.12s ease,
         opacity 0.12s ease;
     }
 
-    .action-btn:active {
+    .btn:active {
       transform: scale(0.97);
     }
 
-    .random-btn {
-      background: #f0eee9;
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .btn-dark {
+      background: var(--black);
+      border-color: var(--black);
+      color: #fff;
+    }
+
+    .btn-light {
+      background: #fff;
       color: var(--text);
     }
 
-    .reply-btn,
-    .post-btn {
+    .btn-x {
       background: var(--black);
-      color: white;
-      margin-left: auto;
+      border-color: var(--black);
+      color: #fff;
     }
 
-    .action-btn:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-
-    .replied-status {
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      padding: 7px 10px;
-      border-radius: 9px;
-      background: var(--green-soft);
-      color: var(--green);
-      font-size: 11px;
-      font-weight: 850;
-    }
-
-    .remaining {
-      margin-left: auto;
-      font-size: 10px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    /* =========================
+    /* =====================================================
        REPLY CARDS
-    ========================= */
+    ===================================================== */
 
     .reply-list {
       display: flex;
@@ -388,253 +383,281 @@
     }
 
     .reply-card {
-      background: var(--surface);
+      background: #fff;
       border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+      border-radius: 11px;
+
       overflow: hidden;
-      transition:
-        border-color 0.15s ease,
-        box-shadow 0.15s ease;
     }
-
-    .reply-card.expanded {
-      border-color: #d4d0c8;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.035);
-    }
-
-    .reply-card.replied {
-      border-color: #d6e8da;
-    }
-
-    /* =========================
-       REPLY HEADER
-    ========================= */
 
     .reply-header {
       width: 100%;
+
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 9px 10px;
+
+      background: #fff;
+
       border: 0;
-      background: transparent;
-      padding: 11px 12px;
+
       text-align: left;
+
       cursor: pointer;
     }
 
-    .reply-header-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 5px;
+    .reply-header:hover {
+      background: var(--surface-soft);
     }
 
-    .priority {
+    .priority-badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
+
+      flex-shrink: 0;
 
       font-size: 9px;
       font-weight: 900;
-      letter-spacing: 0.4px;
+
+      letter-spacing: 0.3px;
     }
 
-    .priority::before {
-      content: "";
+    .priority-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      display: inline-block;
     }
 
-    .priority-hot {
+    .priority-HOT {
       color: var(--hot);
     }
 
-    .priority-hot::before {
+    .priority-HOT .priority-dot {
       background: var(--hot);
     }
 
-    .priority-high {
+    .priority-HIGH {
       color: var(--high);
     }
 
-    .priority-high::before {
+    .priority-HIGH .priority-dot {
       background: var(--high);
     }
 
-    .priority-normal {
+    .priority-NORMAL {
       color: var(--normal);
     }
 
-    .priority-normal::before {
+    .priority-NORMAL .priority-dot {
       background: var(--normal);
     }
 
-    .expand-icon {
-      color: #aaa59c;
-      font-size: 13px;
-      line-height: 1;
-      transition: transform 0.15s ease;
-    }
-
-    .reply-card.expanded .expand-icon {
-      transform: rotate(180deg);
-    }
-
-    .reply-account-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
     .reply-account {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
+
+      min-width: 0;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .tweet-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+
+      margin-left: auto;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      text-decoration: none;
+
+      white-space: nowrap;
+    }
+
+    .tweet-link:hover {
+      color: var(--text);
+    }
+
+    .tweet-arrow {
+      font-size: 11px;
     }
 
     .reply-card-status {
       font-size: 9px;
-      font-weight: 850;
-      color: var(--green);
+      font-weight: 900;
+      color: #4d8a5d;
+
       white-space: nowrap;
     }
 
-    .reply-header-bottom {
-      display: flex;
-      align-items: center;
-      margin-top: 4px;
+    .reply-chevron {
+      font-size: 11px;
+      color: var(--muted);
+
+      transition: transform 0.15s ease;
     }
 
-    /* =========================
-       REPLY BODY
-    ========================= */
+    .reply-card.open .reply-chevron {
+      transform: rotate(180deg);
+    }
 
     .reply-body {
       display: none;
-      padding: 0 12px 12px;
+
+      padding: 0 10px 10px;
     }
 
-    .reply-card.expanded .reply-body {
+    .reply-card.open .reply-body {
       display: block;
     }
 
-    .reply-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 0 -12px 10px;
+    .tweet-description {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+
+      margin-bottom: 7px;
     }
 
     .engagement {
       display: flex;
-      align-items: center;
-      gap: 13px;
-      margin-bottom: 10px;
+      gap: 10px;
+
       color: var(--muted);
+
       font-size: 10px;
-      font-weight: 650;
+
+      margin-bottom: 7px;
     }
 
-    .engagement-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+    .engagement span {
       white-space: nowrap;
     }
 
-    .message-box.reply-message {
-      margin-bottom: 9px;
+    .reply-card .message-box {
+      max-height: 120px;
+      margin-bottom: 7px;
     }
 
     .reply-actions {
       display: flex;
-      align-items: center;
-      gap: 7px;
+      gap: 6px;
     }
 
-    /* =========================
-       EMPTY / LOADING
-    ========================= */
+    /* =====================================================
+       LOADING / ERROR
+    ===================================================== */
 
-    .loading,
-    .empty,
-    .error {
-      padding: 18px 10px;
+    .loading {
       text-align: center;
       color: var(--muted);
       font-size: 12px;
+
+      padding: 20px 10px;
     }
 
     .error {
-      color: #b64b4b;
+      background: #fff1f1;
+      border: 1px solid #f1cccc;
+
+      color: #a33;
+
+      padding: 10px;
+      border-radius: 9px;
+
+      font-size: 11px;
+      line-height: 1.5;
+
+      margin-bottom: 10px;
     }
 
-    /* =========================
+    .hidden {
+      display: none !important;
+    }
+
+    /* =====================================================
        MOBILE
-    ========================= */
+    ===================================================== */
 
     @media (max-width: 480px) {
       .app {
-        padding: 14px 10px 40px;
-      }
-
-      .brand {
-        margin-bottom: 11px;
+        padding: 12px 9px 30px;
       }
 
       .brand-name {
         font-size: 17px;
       }
 
-      .brand-subtitle {
-        font-size: 10px;
-      }
-
-      .section {
-        padding: 10px;
-        border-radius: 17px;
-      }
-
-      .section-header {
-        margin-bottom: 8px;
+      .content-section {
+        padding: 8px;
       }
 
       .post-card {
-        padding: 11px;
+        padding: 8px;
       }
 
-      .engagement {
-        gap: 10px;
+      .reply-header {
+        padding: 8px;
       }
 
-      .message-box {
-        font-size: 12.5px;
+      .reply-account {
+        max-width: 105px;
       }
 
-      .action-btn {
-        padding-left: 10px;
-        padding-right: 10px;
+      .tweet-link {
+        font-size: 9px;
+      }
+
+      .btn {
+        min-height: 31px;
+        padding: 0 10px;
       }
     }
   </style>
 </head>
 
 <body>
+
   <main class="app">
 
-    <!-- =========================
-         BRAND
-    ========================== -->
-    <div class="brand">
-      <div class="brand-logo">🐘</div>
-      <div class="brand-name">GomGom Message</div>
-      <div class="brand-subtitle">random message helper</div>
-    </div>
+    <!-- ===================================================
+         HEADER
+    ==================================================== -->
 
-    <!-- =========================
+    <header class="brand">
+      <div class="brand-title">
+        <span class="brand-elephant">🐘</span>
+
+        <div>
+          <div class="brand-name">
+            GomGom Message
+          </div>
+
+          <div class="brand-subtitle">
+            Random message generator
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- ===================================================
          PLATFORM
-    ========================== -->
+    ==================================================== -->
+
     <div class="platform-tabs">
-      <button class="platform-tab active" type="button">
+
+      <button
+        class="platform-tab active"
+        type="button"
+      >
         𝕏 X
       </button>
 
@@ -642,7 +665,6 @@
         class="platform-tab disabled"
         type="button"
         disabled
-        title="Coming soon"
       >
         Instagram
       </button>
@@ -651,1056 +673,1702 @@
         class="platform-tab disabled"
         type="button"
         disabled
-        title="Coming soon"
       >
         TikTok
       </button>
+
     </div>
 
-    <!-- =========================
+
+    <!-- ===================================================
+         ERROR
+    ==================================================== -->
+
+    <div
+      id="errorBox"
+      class="error hidden"
+    ></div>
+
+
+    <!-- ===================================================
          TOPIC
-    ========================== -->
-    <div class="topic-area">
-      <div class="topic-select-wrap">
-        <select id="topicSelect" class="topic-select">
-          <option value="">กำลังโหลด...</option>
-        </select>
+    ==================================================== -->
 
-        <span class="topic-arrow">⌄</span>
+    <section class="topic-section">
+
+      <div class="section-label">
+        Topic
       </div>
-    </div>
 
-    <!-- Content -->
-    <div id="content"></div>
+      <select
+        id="topicSelect"
+        class="topic-select"
+      >
+        <option value="">
+          Loading...
+        </option>
+      </select>
+
+
+      <div class="topic-about">
+
+        <div class="topic-about-title">
+          About this Topic
+        </div>
+
+        <div
+          id="topicDescription"
+          class="topic-description"
+        >
+          —
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         POST
+    ==================================================== -->
+
+    <section class="content-section post-section">
+
+      <div class="section-heading">
+
+        <div class="section-title">
+          POST
+        </div>
+
+        <div
+          id="postCount"
+          class="section-count"
+        >
+          —
+        </div>
+
+      </div>
+
+
+      <div class="post-card">
+
+        <div class="post-card-top">
+
+          <div
+            id="postMeta"
+            class="post-meta"
+          >
+            Random a message
+          </div>
+
+          <div
+            id="postRemaining"
+            class="remaining"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div
+          id="postMessage"
+          class="message-box"
+        >
+          <span class="message-empty">
+            กด Random เพื่อสุ่มข้อความ
+          </span>
+        </div>
+
+
+        <div class="button-row">
+
+          <button
+            id="postRandomBtn"
+            class="btn btn-dark"
+            type="button"
+          >
+            ↻ Random
+          </button>
+
+          <button
+            id="postAgainBtn"
+            class="btn btn-light hidden"
+            type="button"
+          >
+            ↻ Again
+          </button>
+
+          <button
+            id="postBtn"
+            class="btn btn-x hidden"
+            type="button"
+          >
+            ↗ Post
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         REPLY
+    ==================================================== -->
+
+    <section class="content-section reply-section">
+
+      <div class="section-heading">
+
+        <div class="section-title">
+          REPLY
+        </div>
+
+        <div
+          id="replyCount"
+          class="section-count"
+        >
+          —
+        </div>
+
+      </div>
+
+
+      <div
+        id="replyList"
+        class="reply-list"
+      >
+
+        <div class="loading">
+          Loading...
+        </div>
+
+      </div>
+
+    </section>
 
   </main>
 
+
   <script>
- /* =====================================================
+    "use strict";
+
+
+    /* =====================================================
        CONFIG
     ===================================================== */
 
-    // URL CSV ของ sheet "main"
-    const MAIN_CSV_URL =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vR-CnwPK2fSRjsBrmWn3XVIXZEbDFPGguJQeco7B4nNv-7YOcxmIk0ge1846CC5OB8o3sqWK7TwIo_a/pub?output=csv";
-
-    // Spreadsheet ID
     const SPREADSHEET_ID =
-      "1RJ7OzLLgvMSKdVTxVfKOqQXir7vXIIyWpa_gImp1PzM";
+      "YOUR_GOOGLE_SPREADSHEET_ID";
 
-    // Supabase
     const SUPABASE_URL =
-      "https://romrjbyaqckrpvobbzkw.supabase.co";
+      "https://YOUR_PROJECT.supabase.co";
 
     const SUPABASE_KEY =
-      "sb_publishable_4DN0Penjs0vuTYzVdY4-Ug_AmsxurCE";
+      "YOUR_SUPABASE_PUBLISHABLE_KEY";
 
 
-    /* =========================================================
+    /* =====================================================
        GLOBAL STATE
-    ========================================================= */
+    ===================================================== */
 
-    let mainRows = [];
+    let subjectRows = [];
+    let twSubjectRows = [];
 
-    let activeReplyCard = null;
+    let topics = [];
+    let currentTopic = null;
+
+    let currentPostSheet = null;
+
+    let postMessages = [];
+
+    let replyTweets = [];
+
+    let postSelectedMessage = null;
 
 
-    /* =========================================================
+    /* =====================================================
+       DOM
+    ===================================================== */
+
+    const topicSelect =
+      document.getElementById("topicSelect");
+
+    const topicDescription =
+      document.getElementById("topicDescription");
+
+    const errorBox =
+      document.getElementById("errorBox");
+
+    const postMessage =
+      document.getElementById("postMessage");
+
+    const postRandomBtn =
+      document.getElementById("postRandomBtn");
+
+    const postAgainBtn =
+      document.getElementById("postAgainBtn");
+
+    const postBtn =
+      document.getElementById("postBtn");
+
+    const postRemaining =
+      document.getElementById("postRemaining");
+
+    const postMeta =
+      document.getElementById("postMeta");
+
+    const postCount =
+      document.getElementById("postCount");
+
+    const replyList =
+      document.getElementById("replyList");
+
+    const replyCount =
+      document.getElementById("replyCount");
+
+
+    /* =====================================================
        INIT
-    ========================================================= */
+    ===================================================== */
 
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
+    );
+
 
     async function init() {
-      try {
-        mainRows = await loadMainSheet();
 
-        setupTopicSelector();
-        loadInitialTopic();
+      try {
+
+        validateConfig();
+
+        showLoading();
+
+        const results =
+          await Promise.all([
+            loadSheet("subject"),
+            loadSheet("tw_subject")
+          ]);
+
+        subjectRows = results[0];
+        twSubjectRows = results[1];
+
+        topics = buildTopics(subjectRows);
+
+        if (!topics.length) {
+          throw new Error(
+            "ไม่พบ Topic ใน sheet subject"
+          );
+        }
+
+        renderTopicOptions();
+
+        topicSelect.value =
+          topics[0].topicId;
+
+        await selectTopic(
+          topics[0].topicId
+        );
 
       } catch (error) {
+
         console.error(error);
 
-        document.getElementById("content").innerHTML = `
-          <div class="error">
-            ไม่สามารถโหลดข้อมูลได้
-          </div>
-        `;
+        showError(
+          error.message ||
+          "เกิดข้อผิดพลาดในการโหลดข้อมูล"
+        );
+
       }
+
     }
 
 
-    /* =========================================================
-       CSV
-    ========================================================= */
+    /* =====================================================
+       CONFIG VALIDATION
+    ===================================================== */
 
-    function parseCSV(text) {
+    function validateConfig() {
+
+      if (
+        !SPREADSHEET_ID ||
+        SPREADSHEET_ID ===
+          "YOUR_GOOGLE_SPREADSHEET_ID"
+      ) {
+        throw new Error(
+          "กรุณาใส่ SPREADSHEET_ID"
+        );
+      }
+
+      if (
+        !SUPABASE_URL ||
+        SUPABASE_URL.includes(
+          "YOUR_PROJECT"
+        )
+      ) {
+        throw new Error(
+          "กรุณาใส่ SUPABASE_URL"
+        );
+      }
+
+      if (
+        !SUPABASE_KEY ||
+        SUPABASE_KEY ===
+          "YOUR_SUPABASE_PUBLISHABLE_KEY"
+      ) {
+        throw new Error(
+          "กรุณาใส่ SUPABASE publishable key"
+        );
+      }
+
+    }
+
+
+    /* =====================================================
+       GOOGLE SHEET
+    ===================================================== */
+
+    async function loadSheet(sheetName) {
+
+      const url =
+        "https://docs.google.com/spreadsheets/d/" +
+        encodeURIComponent(SPREADSHEET_ID) +
+        "/gviz/tq?tqx=out:csv&sheet=" +
+        encodeURIComponent(sheetName);
+
+      const response =
+        await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(
+          `โหลด sheet ${sheetName} ไม่สำเร็จ`
+        );
+      }
+
+      const csv =
+        await response.text();
+
+      return parseCSV(csv);
+
+    }
+
+
+    /* =====================================================
+       CSV PARSER
+    ===================================================== */
+
+    function parseCSV(csv) {
+
       const rows = [];
       let row = [];
       let value = "";
       let insideQuotes = false;
 
-      for (let i = 0; i < text.length; i++) {
-        const char = text[i];
-        const next = text[i + 1];
+      for (
+        let i = 0;
+        i < csv.length;
+        i++
+      ) {
+
+        const char = csv[i];
+        const next = csv[i + 1];
 
         if (char === '"' && insideQuotes && next === '"') {
+
           value += '"';
           i++;
           continue;
+
         }
 
         if (char === '"') {
-          insideQuotes = !insideQuotes;
+
+          insideQuotes =
+            !insideQuotes;
+
           continue;
+
         }
 
         if (char === "," && !insideQuotes) {
+
           row.push(value);
           value = "";
+
           continue;
+
         }
 
-        if ((char === "\n" || char === "\r") && !insideQuotes) {
-          if (char === "\r" && next === "\n") {
+        if (
+          (char === "\n" || char === "\r") &&
+          !insideQuotes
+        ) {
+
+          if (
+            char === "\r" &&
+            next === "\n"
+          ) {
             i++;
           }
 
           row.push(value);
           value = "";
 
-          if (row.some(cell => cell.trim() !== "")) {
+          if (
+            row.some(
+              cell =>
+                String(cell).trim() !== ""
+            )
+          ) {
             rows.push(row);
           }
 
           row = [];
+
           continue;
+
         }
 
         value += char;
+
       }
 
-      if (value.length || row.length) {
+      if (
+        value !== "" ||
+        row.length
+      ) {
+
         row.push(value);
 
-        if (row.some(cell => cell.trim() !== "")) {
+        if (
+          row.some(
+            cell =>
+              String(cell).trim() !== ""
+          )
+        ) {
           rows.push(row);
         }
+
       }
 
-      if (!rows.length) return [];
+      if (!rows.length) {
+        return [];
+      }
+
 
       /*
-       * รองรับกรณี Sheet มี metadata อยู่ด้านบน
-       * เช่น All_message / จำนวนข้อความ
-       *
-       * จะหา row ที่มี message_id / text / topic
-       */
+        Find actual header row.
 
-      let headerIndex = rows.findIndex(row =>
-        row.some(cell => {
-          const v = normalizeText(cell);
-          return (
-            v === "message_id" ||
-            v === "text" ||
-            v === "topic"
-          );
-        })
-      );
+        This makes the parser tolerate
+        metadata rows before the header.
+      */
 
-      if (headerIndex === -1) {
-        headerIndex = 0;
+      let headerIndex = 0;
+
+      for (
+        let i = 0;
+        i < Math.min(rows.length, 10);
+        i++
+      ) {
+
+        const normalized =
+          rows[i]
+            .map(normalizeHeader);
+
+        if (
+          normalized.includes("message_id") ||
+          normalized.includes("topic_id") ||
+          normalized.includes("tweet_id") ||
+          normalized.includes("text")
+        ) {
+
+          headerIndex = i;
+          break;
+
+        }
+
       }
 
-      const headers = rows[headerIndex].map(h =>
-        normalizeText(h)
-      );
 
-      return rows
-        .slice(headerIndex + 1)
-        .map(row => {
-          const obj = {};
+      const headers =
+        rows[headerIndex]
+          .map(normalizeHeader);
 
-          headers.forEach((header, index) => {
-            if (!header) return;
+      const result = [];
+
+      for (
+        let i = headerIndex + 1;
+        i < rows.length;
+        i++
+      ) {
+
+        const current =
+          rows[i];
+
+        const obj = {};
+
+        headers.forEach(
+          (header, index) => {
 
             obj[header] =
-              row[index] !== undefined
-                ? row[index].trim()
-                : "";
-          });
+              String(
+                current[index] ?? ""
+              ).trim();
 
-          return obj;
-        })
-        .filter(row =>
-          Object.values(row).some(value => value !== "")
+          }
         );
+
+        result.push(obj);
+
+      }
+
+      return result;
+
     }
 
 
-    function normalizeText(value) {
+    function normalizeHeader(value) {
+
       return String(value || "")
         .trim()
         .toLowerCase()
         .replace(/\s+/g, "_");
+
     }
 
 
-    /* =========================================================
-       GOOGLE SHEETS
-    ========================================================= */
+    /* =====================================================
+       TOPICS
+    ===================================================== */
 
-    async function loadMainSheet() {
-      const response = await fetch(MAIN_CSV_URL);
+    function buildTopics(rows) {
 
-      if (!response.ok) {
-        throw new Error("Cannot load main sheet");
-      }
+      const map =
+        new Map();
 
-      const csv = await response.text();
+      for (const row of rows) {
 
-      return parseCSV(csv);
-    }
+        const topicId =
+          String(
+            row.topic_id || ""
+          ).trim();
 
+        const topicName =
+          String(
+            row.topic_name || ""
+          ).trim();
 
-    async function loadChildSheet(sheetName) {
-      const url =
-        `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}` +
-        `/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
+        if (
+          !topicId ||
+          !topicName
+        ) {
+          continue;
+        }
 
-      const response = await fetch(url);
+        if (!map.has(topicId)) {
 
-      if (!response.ok) {
-        throw new Error(`Cannot load sheet: ${sheetName}`);
-      }
+          map.set(
+            topicId,
+            {
+              topicId,
+              topicName,
+              description:
+                String(
+                  row.topic_desc || ""
+                ).trim(),
 
-      const csv = await response.text();
-
-      return parseCSV(csv);
-    }
-
-
-    /* =========================================================
-       TOPIC
-    ========================================================= */
-
-    function getTopics() {
-      return [
-        ...new Set(
-          mainRows
-            .map(row => String(row.topic || "").trim())
-            .filter(Boolean)
-        )
-      ];
-    }
-
-
-    function getTopicDescription(topic) {
-      const row = mainRows.find(
-        row => String(row.topic || "").trim() === topic
-      );
-
-      return String(row?.description || "").trim();
-    }
-
-
-    function setupTopicSelector() {
-      const select = document.getElementById("topicSelect");
-
-      const topics = getTopics();
-
-      select.innerHTML = "";
-
-      topics.forEach(topic => {
-        const option = document.createElement("option");
-
-        option.value = topic;
-        option.textContent = topic;
-
-        select.appendChild(option);
-      });
-
-      select.addEventListener("change", () => {
-        loadTopic(select.value);
-      });
-    }
-
-
-    function loadInitialTopic() {
-      const select = document.getElementById("topicSelect");
-
-      if (!select.value) return;
-
-      loadTopic(select.value);
-    }
-
-
-    /* =========================================================
-       LOAD TOPIC
-    ========================================================= */
-
-    async function loadTopic(topic) {
-      const content = document.getElementById("content");
-
-      activeReplyCard = null;
-
-      content.innerHTML = `
-        <div class="loading">
-          กำลังโหลดข้อความ...
-        </div>
-      `;
-
-      try {
-        const replyTweets = getReplyTweets(topic);
-
-        content.innerHTML = "";
-
-        /* ABOUT */
-
-        const topicIntro = document.createElement("div");
-
-        topicIntro.className = "topic-intro";
-
-        const description =
-          getTopicDescription(topic) || "—";
-
-        topicIntro.innerHTML = `
-          <div class="topic-intro-label">
-            About this Topic
-          </div>
-
-          <div class="topic-intro-title">
-            ${escapeHtml(topic)}
-          </div>
-
-          <div class="topic-intro-description">
-            ${escapeHtml(description)}
-          </div>
-        `;
-
-        content.appendChild(topicIntro);
-
-
-        /* POST */
-
-        const postSection =
-          await createPostSection(topic);
-
-        content.appendChild(postSection);
-
-
-        /* REPLY */
-
-        const replySection =
-          await createReplySection(
-            topic,
-            replyTweets
+              postSheet:
+                String(
+                  row.post_sheet || ""
+                ).trim()
+            }
           );
 
-        content.appendChild(replySection);
+        }
 
-      } catch (error) {
-        console.error(error);
-
-        content.innerHTML = `
-          <div class="error">
-            ไม่สามารถโหลดข้อมูลของ Topic นี้ได้
-          </div>
-        `;
       }
+
+      return Array.from(
+        map.values()
+      );
+
     }
 
 
-    /* =========================================================
-       POST SECTION
-    ========================================================= */
+    function renderTopicOptions() {
 
-    async function createPostSection(topic) {
-      const section =
-        document.createElement("section");
+      topicSelect.innerHTML = "";
 
-      section.className =
-        "section post-section";
+      for (const topic of topics) {
 
-      section.innerHTML = `
-        <div class="section-header">
-          <div class="section-title">
-            POST
-          </div>
-        </div>
+        const option =
+          document.createElement("option");
 
-        <div id="postContainer"></div>
-      `;
+        option.value =
+          topic.topicId;
 
-      const container =
-        section.querySelector("#postContainer");
+        option.textContent =
+          topic.topicName;
 
-      const card =
-        await createPostCard(topic);
-
-      container.appendChild(card);
-
-      return section;
-    }
-
-
-    async function createPostCard(topic) {
-      const card =
-        document.createElement("div");
-
-      card.className = "post-card";
-
-      const row =
-        mainRows.find(
-          item =>
-            String(item.topic || "").trim() === topic
+        topicSelect.appendChild(
+          option
         );
 
-      const accName =
-        String(row?.acc_name || "").trim();
+      }
 
-      const tweetId =
-        String(row?.tweet_id || "").trim();
-
-      const linkPost =
-        String(row?.link_post || "").trim() ||
-        getTweetUrl(tweetId);
-
-      card.innerHTML = `
-        <div class="post-meta">
-
-          <div class="account">
-            ${escapeHtml(accName ? "@" + accName : "")}
-          </div>
-
-          ${
-            tweetId
-              ? `
-                <a
-                  class="tweet-id-link"
-                  href="${escapeHtml(linkPost)}"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  TW ${escapeHtml(maskTweetId(tweetId))} ↗
-                </a>
-              `
-              : ""
-          }
-
-        </div>
-
-        <div
-          class="message-box"
-          data-role="message"
-        >
-          <span class="message-placeholder">
-            กด Random เพื่อสุ่มข้อความ
-          </span>
-        </div>
-
-        <div class="action-row">
-
-          <button
-            class="action-btn random-btn"
-            type="button"
-            data-role="random"
-          >
-            ↻ Random
-          </button>
-
-          <button
-            class="action-btn post-btn"
-            type="button"
-            data-role="post"
-            hidden
-          >
-            ↗ Post
-          </button>
-
-          <span
-            class="remaining"
-            data-role="remaining"
-          >
-            —
-          </span>
-
-        </div>
-      `;
-
-      const randomBtn =
-        card.querySelector('[data-role="random"]');
-
-      const postBtn =
-        card.querySelector('[data-role="post"]');
-
-      const messageBox =
-        card.querySelector('[data-role="message"]');
-
-      const remainingEl =
-        card.querySelector('[data-role="remaining"]');
+    }
 
 
-      let selectedMessage = null;
-      let hasRandomized = false;
+    /* =====================================================
+       TOPIC CHANGE
+    ===================================================== */
 
+    topicSelect.addEventListener(
+      "change",
+      async function () {
 
-      async function randomize() {
-        randomBtn.disabled = true;
+        const topicId =
+          topicSelect.value;
 
         try {
-          const result =
-            await claimRandomPost(topic);
 
-          if (!result) {
-            messageBox.innerHTML = `
-              <span class="message-placeholder">
-                ข้อความหมดแล้ว
+          await selectTopic(topicId);
+
+        } catch (error) {
+
+          console.error(error);
+
+          showError(
+            error.message
+          );
+
+        }
+
+      }
+    );
+
+
+    async function selectTopic(topicId) {
+
+      const topic =
+        topics.find(
+          item =>
+            item.topicId ===
+            String(topicId)
+        );
+
+      if (!topic) {
+        return;
+      }
+
+      currentTopic =
+        topic;
+
+      currentPostSheet =
+        getPostSheetName(
+          topic
+        );
+
+      topicDescription.innerHTML =
+        formatTopicDescription(
+          topic.description
+        );
+
+
+      resetPost();
+
+      replyList.innerHTML =
+        `
+          <div class="loading">
+            Loading...
+          </div>
+        `;
+
+
+      /*
+        Load POST and REPLY metadata
+        at the same time.
+      */
+
+      const [
+        posts,
+        tweets
+      ] = await Promise.all([
+        loadPostMessages(
+          currentPostSheet
+        ),
+        Promise.resolve(
+          getReplyTweets(
+            topic.topicId
+          )
+        )
+      ]);
+
+
+      postMessages =
+        posts;
+
+      replyTweets =
+        tweets;
+
+
+      renderPostInfo();
+
+      renderReplyCards();
+
+    }
+
+
+    /* =====================================================
+       POST SHEET NAME
+    ===================================================== */
+
+    function getPostSheetName(topic) {
+
+      /*
+        If subject has optional post_sheet
+        column, use it.
+
+        Otherwise:
+        P_ + Topic_name
+        with spaces converted to _
+      */
+
+      if (
+        topic.postSheet
+      ) {
+
+        return topic.postSheet;
+
+      }
+
+      return (
+        "P_" +
+        String(
+          topic.topicName || ""
+        )
+          .trim()
+          .replace(/\s+/g, "_")
+      );
+
+    }
+
+
+    /* =====================================================
+       POST DATA
+    ===================================================== */
+
+    async function loadPostMessages(
+      sheetName
+    ) {
+
+      const rows =
+        await loadSheet(
+          sheetName
+        );
+
+      return rows.filter(
+        row => {
+
+          const id =
+            String(
+              row.message_id || ""
+            ).trim();
+
+          const text =
+            String(
+              row.text || ""
+            ).trim();
+
+          return (
+            id &&
+            text
+          );
+
+        }
+      );
+
+    }
+
+
+    function renderPostInfo() {
+
+      postCount.textContent =
+        `${postMessages.length} messages`;
+
+      postMeta.textContent =
+        currentPostSheet;
+
+    }
+
+
+    /* =====================================================
+       POST RANDOM
+    ===================================================== */
+
+    postRandomBtn.addEventListener(
+      "click",
+      randomPost
+    );
+
+    postAgainBtn.addEventListener(
+      "click",
+      randomPost
+    );
+
+    async function randomPost() {
+
+      if (
+        !currentTopic ||
+        !postMessages.length
+      ) {
+
+        showError(
+          "ไม่พบข้อความใน POST sheet"
+        );
+
+        return;
+
+      }
+
+      disablePostButtons();
+
+      try {
+
+        const result =
+          await claimRandomPostMessage();
+
+        if (!result) {
+
+          postMessage.innerHTML =
+            `
+              <span class="message-empty">
+                ข้อความใน topic นี้ถูกใช้ครบแล้ว
               </span>
             `;
 
-            postBtn.hidden = true;
+          postRemaining.textContent =
+            "0/0";
 
-            remainingEl.textContent = "0/0";
+          return;
 
-            return;
-          }
-
-          selectedMessage = result.message;
-
-          const remaining =
-            result.remaining;
-
-          const total =
-            result.total;
-
-          messageBox.textContent =
-            selectedMessage.text;
-
-          hasRandomized = true;
-
-          randomBtn.textContent =
-            "↻ Again";
-
-          postBtn.hidden = false;
-
-          remainingEl.textContent =
-            `${remaining}/${total}`;
-
-        } catch (error) {
-          console.error(error);
-
-          messageBox.innerHTML = `
-            <span class="message-placeholder">
-              สุ่มข้อความไม่สำเร็จ
-            </span>
-          `;
-        } finally {
-          randomBtn.disabled = false;
         }
+
+
+        postSelectedMessage =
+          result.message;
+
+
+        postMessage.textContent =
+          result.message.text;
+
+
+        postRemaining.textContent =
+          `${result.remaining}/${result.total}`;
+
+
+        postRandomBtn.classList.add(
+          "hidden"
+        );
+
+        postAgainBtn.classList.remove(
+          "hidden"
+        );
+
+        postBtn.classList.remove(
+          "hidden"
+        );
+
+      } catch (error) {
+
+        console.error(error);
+
+        showError(
+          error.message ||
+          "สุ่ม POST ไม่สำเร็จ"
+        );
+
+      } finally {
+
+        enablePostButtons();
+
       }
 
-
-      randomBtn.addEventListener(
-        "click",
-        randomize
-      );
+    }
 
 
-      postBtn.addEventListener(
-        "click",
-        () => {
-          if (!selectedMessage) return;
+    async function claimRandomPostMessage() {
 
-          window.open(
-            createPostUrl(
-              selectedMessage.text
-            ),
-            "_blank",
-            "noopener"
+      const shuffled =
+        shuffle([
+          ...postMessages
+        ]);
+
+
+      for (
+        const message of shuffled
+      ) {
+
+        const claimed =
+          await claimPost(
+            currentTopic.topicId,
+            message.message_id
           );
-        }
-      );
 
+        if (claimed) {
 
-      return card;
-    }
-
-
-    /* =========================================================
-       REPLY TWEETS
-    ========================================================= */
-
-    function getReplyTweets(topic) {
-      const map = new Map();
-
-      mainRows
-        .filter(
-          row =>
-            String(row.topic || "").trim() === topic
-        )
-        .forEach(row => {
-          const tweetId =
-            String(row.tweet_id || "").trim();
-
-          if (!tweetId) return;
-
-          if (!map.has(tweetId)) {
-            map.set(tweetId, {
-              tweetId,
-
-              accName:
-                String(row.acc_name || "").trim(),
-
-              linkPost:
-                String(row.link_post || "").trim(),
-
-              likes:
-                String(row.likes || "").trim(),
-
-              replies:
-                String(row.replies || "").trim(),
-
-              reposts:
-                String(row.reposts || "").trim(),
-
-              priority:
-                String(row.priority || "NORMAL").trim()
-            });
-
-            return;
-          }
-
-          /*
-           * ถ้า Tweet เดิมมีหลาย row
-           * ให้เติม metadata ที่ยังว่าง
-           */
-
-          const current = map.get(tweetId);
-
-          if (!current.accName) {
-            current.accName =
-              String(row.acc_name || "").trim();
-          }
-
-          if (!current.linkPost) {
-            current.linkPost =
-              String(row.link_post || "").trim();
-          }
-
-          if (!current.likes) {
-            current.likes =
-              String(row.likes || "").trim();
-          }
-
-          if (!current.replies) {
-            current.replies =
-              String(row.replies || "").trim();
-          }
-
-          if (!current.reposts) {
-            current.reposts =
-              String(row.reposts || "").trim();
-          }
-
-          if (
-            !current.priority &&
-            row.priority
-          ) {
-            current.priority =
-              String(row.priority).trim();
-          }
-        });
-
-      return Array.from(map.values());
-    }
-
-
-    /* =========================================================
-       REPLY SECTION
-    ========================================================= */
-
-    async function createReplySection(
-      topic,
-      replyTweets
-    ) {
-      const section =
-        document.createElement("section");
-
-      section.className =
-        "section reply-section";
-
-      section.innerHTML = `
-        <div class="section-header">
-
-          <div class="section-title">
-            REPLY · ${replyTweets.length} POSTS
-          </div>
-
-        </div>
-
-        <div class="reply-list"></div>
-      `;
-
-      const list =
-        section.querySelector(".reply-list");
-
-      if (!replyTweets.length) {
-        list.innerHTML = `
-          <div class="empty">
-            ยังไม่มี Reply Post
-          </div>
-        `;
-
-        return section;
-      }
-
-
-      for (const tweet of replyTweets) {
-        try {
-          const card =
-            await createReplyCard(
-              topic,
-              tweet
+          const usage =
+            await getPostUsage(
+              currentTopic.topicId
             );
 
-          list.appendChild(card);
+          return {
+            message,
+            total:
+              postMessages.length,
+            remaining:
+              Math.max(
+                0,
+                postMessages.length -
+                usage
+              )
+          };
 
-        } catch (error) {
-          console.error(
-            "Reply card error:",
-            tweet.tweetId,
-            error
+        }
+
+      }
+
+      return null;
+
+    }
+
+
+    /* =====================================================
+       POST SUPABASE
+    ===================================================== */
+
+    async function claimPost(
+      topicId,
+      messageId
+    ) {
+
+      const response =
+        await supabaseFetch(
+          "/rest/v1/rpc/claim_post_message",
+          {
+            method: "POST",
+
+            body: JSON.stringify({
+              p_topic_id:
+                String(topicId),
+
+              p_message_id:
+                String(messageId)
+            })
+          }
+        );
+
+
+      /*
+        Supabase RPC boolean response
+      */
+
+      if (
+        typeof response ===
+        "boolean"
+      ) {
+
+        return response;
+
+      }
+
+
+      /*
+        Some responses may return:
+        [true]
+      */
+
+      if (
+        Array.isArray(response)
+      ) {
+
+        return response[0] === true;
+
+      }
+
+      return false;
+
+    }
+
+
+    async function getPostUsage(
+      topicId
+    ) {
+
+      const response =
+        await supabaseFetch(
+          "/rest/v1/rpc/get_post_usage",
+          {
+            method: "POST",
+
+            body: JSON.stringify({
+              p_topic_id:
+                String(topicId)
+            })
+          }
+        );
+
+      return Number(response) || 0;
+
+    }
+
+
+    /* =====================================================
+       POST BUTTON
+    ===================================================== */
+
+    postBtn.addEventListener(
+      "click",
+      function () {
+
+        if (
+          !postSelectedMessage
+        ) {
+          return;
+        }
+
+        const url =
+          createPostUrl(
+            postSelectedMessage.text
           );
 
-          const errorCard =
-            document.createElement("div");
+        openX(url);
 
-          errorCard.className =
-            "reply-card";
+      }
+    );
 
-          errorCard.innerHTML = `
-            <div class="reply-header">
-              <div class="reply-header-top">
-                <span class="priority priority-normal">
-                  NORMAL
-                </span>
-              </div>
 
-              <div class="reply-account">
-                ${escapeHtml(
-                  tweet.accName
-                    ? "@" + tweet.accName
-                    : ""
-                )}
-              </div>
+    /* =====================================================
+       REPLY TWEETS
+    ===================================================== */
 
-              <div class="reply-header-bottom">
-                <span class="tweet-id-link">
-                  TW ${escapeHtml(
-                    maskTweetId(tweet.tweetId)
-                  )}
-                </span>
-              </div>
+    function getReplyTweets(
+      topicId
+    ) {
+
+      const map =
+        new Map();
+
+      for (
+        const row of twSubjectRows
+      ) {
+
+        const rowTopicId =
+          String(
+            row.topic_id || ""
+          ).trim();
+
+        if (
+          rowTopicId !==
+          String(topicId)
+        ) {
+          continue;
+        }
+
+
+        const tweetId =
+          String(
+            row.tweet_id || ""
+          ).trim();
+
+
+        /*
+          Ignore #N/A and invalid IDs
+        */
+
+        if (
+          !isValidTweetId(
+            tweetId
+          )
+        ) {
+          continue;
+        }
+
+
+        if (
+          map.has(tweetId)
+        ) {
+          continue;
+        }
+
+
+        const accName =
+          String(
+            row.acc_name || ""
+          ).trim();
+
+
+        const linkPost =
+          String(
+            row.link_post || ""
+          ).trim();
+
+
+        const tweetDesc =
+          String(
+            row.tweet_desc || ""
+          ).trim();
+
+
+        const priority =
+          normalizePriority(
+            row.priority
+          );
+
+
+        map.set(
+          tweetId,
+          {
+            tweetId,
+            accName:
+              accName ||
+              "Unknown",
+
+            linkPost,
+
+            likes:
+              row.likes || "",
+
+            replies:
+              row.replies || "",
+
+            reposts:
+              row.reposts || "",
+
+            priority,
+
+            tweetDesc
+          }
+        );
+
+      }
+
+      return Array.from(
+        map.values()
+      );
+
+    }
+
+
+    /* =====================================================
+       REPLY CARDS
+    ===================================================== */
+
+    function renderReplyCards() {
+
+      if (!replyTweets.length) {
+
+        replyList.innerHTML =
+          `
+            <div class="loading">
+              ไม่พบ Tweet สำหรับ Topic นี้
             </div>
           `;
 
-          list.appendChild(errorCard);
-        }
+        replyCount.textContent =
+          "0 tweets";
+
+        return;
+
       }
 
-      return section;
+
+      replyCount.textContent =
+        `${replyTweets.length} tweets`;
+
+
+      replyList.innerHTML = "";
+
+
+      replyTweets.forEach(
+        tweet => {
+
+          const card =
+            createReplyCard(
+              tweet
+            );
+
+          replyList.appendChild(
+            card
+          );
+
+        }
+      );
+
     }
 
 
-    /* =========================================================
-       REPLY CARD
-    ========================================================= */
-
-    async function createReplyCard(
-      topic,
+    function createReplyCard(
       tweet
     ) {
+
       const card =
-        document.createElement("article");
+        document.createElement(
+          "article"
+        );
 
       card.className =
         "reply-card";
 
 
-      const priority =
-        normalizePriority(tweet.priority);
-
-      const priorityClass =
-        priority.toLowerCase();
-
-
-      const tweetUrl =
-        tweet.linkPost ||
-        getTweetUrl(tweet.tweetId);
-
-
-      card.innerHTML = `
-        <button
-          class="reply-header"
-          type="button"
-          data-role="header"
-        >
-
-          <div class="reply-header-top">
-
-            <span
-              class="priority priority-${priorityClass}"
-            >
-              ${escapeHtml(priority)}
-            </span>
-
-            <span
-              class="expand-icon"
-              data-role="expand-icon"
-            >
-             ⌄
-            </span>
-
-          </div>
-
-
-          <div class="reply-account-row">
-
-            <span class="reply-account">
-              ${escapeHtml(
-                tweet.accName
-                  ? "@" + tweet.accName
-                  : ""
-              )}
-            </span>
-
-            <span
-              class="reply-card-status"
-              data-role="header-status"
-            ></span>
-
-          </div>
-
-
-          <div class="reply-header-bottom">
-
-            <a
-              class="tweet-id-link"
-              href="${escapeHtml(tweetUrl)}"
-              target="_blank"
-              rel="noopener"
-              onclick="event.stopPropagation()"
-            >
-              TW ${escapeHtml(
-                maskTweetId(tweet.tweetId)
-              )} ↗
-            </a>
-
-          </div>
-
-        </button>
-
-
-        <div
-          class="reply-body"
-          data-role="body"
-        >
-
-          <div class="reply-divider"></div>
-
-
-          <div class="engagement">
-
-            <span class="engagement-item">
-              ♥ ${escapeHtml(
-                formatCount(tweet.likes)
-              )}
-            </span>
-
-            <span class="engagement-item">
-              💬 ${escapeHtml(
-                formatCount(tweet.replies)
-              )}
-            </span>
-
-            <span class="engagement-item">
-              ↻ ${escapeHtml(
-                formatCount(tweet.reposts)
-              )}
-            </span>
-
-          </div>
-
-
-          <div
-            class="message-box reply-message"
-            data-role="message"
-          >
-            <span class="message-placeholder">
-              กด ↻ Random เพื่อสุ่มข้อความ
-            </span>
-          </div>
-
-
-          <div class="reply-actions">
-
-            <button
-              class="action-btn random-btn"
-              type="button"
-              data-role="random"
-            >
-              ↻ Random
-            </button>
-
-
-            <button
-              class="action-btn reply-btn"
-              type="button"
-              data-role="reply"
-              hidden
-            >
-              ↗ Reply
-            </button>
-
-
-            <span
-              class="replied-status"
-              data-role="replied"
-              hidden
-            >
-              ✓ REPLIED
-            </span>
-
-
-            <span
-              class="remaining"
-              data-role="remaining"
-            >
-              —
-            </span>
-
-          </div>
-
-        </div>
-      `;
-
+      /*
+        Header
+      */
 
       const header =
-        card.querySelector(
-          '[data-role="header"]'
+        document.createElement(
+          "button"
         );
 
-      const messageBox =
-        card.querySelector(
-          '[data-role="message"]'
+      header.type =
+        "button";
+
+      header.className =
+        "reply-header";
+
+
+      const priority =
+        document.createElement(
+          "span"
         );
 
-      const randomBtn =
-        card.querySelector(
-          '[data-role="random"]'
+      priority.className =
+        `priority-badge priority-${tweet.priority}`;
+
+
+      const priorityDot =
+        document.createElement(
+          "span"
         );
 
-      const replyBtn =
-        card.querySelector(
-          '[data-role="reply"]'
+      priorityDot.className =
+        "priority-dot";
+
+
+      priority.appendChild(
+        priorityDot
+      );
+
+
+      const priorityText =
+        document.createElement(
+          "span"
         );
 
-      const repliedStatus =
-        card.querySelector(
-          '[data-role="replied"]'
+      priorityText.textContent =
+        tweet.priority;
+
+
+      priority.appendChild(
+        priorityText
+      );
+
+
+      const account =
+        document.createElement(
+          "span"
         );
+
+      account.className =
+        "reply-account";
+
+      account.textContent =
+        "@" +
+        tweet.accName;
+
 
       const headerStatus =
-        card.querySelector(
-          '[data-role="header-status"]'
+        document.createElement(
+          "span"
         );
 
-      const remainingEl =
-        card.querySelector(
-          '[data-role="remaining"]'
+      /*
+        IMPORTANT:
+        No replied-status span.
+      */
+
+      headerStatus.className =
+        "reply-card-status";
+
+      headerStatus.dataset.role =
+        "header-status";
+
+
+      const tweetLink =
+        document.createElement(
+          "a"
         );
 
+      tweetLink.className =
+        "tweet-link";
 
-      let selectedMessage = null;
+      tweetLink.target =
+        "_blank";
 
-      let hasRandomized = false;
+      tweetLink.rel =
+        "noopener noreferrer";
 
-      let isReplied = false;
+      tweetLink.href =
+        tweet.linkPost ||
+        getTweetUrl(
+          tweet.tweetId
+        );
+
+      tweetLink.innerHTML =
+        `
+          ${maskTweetId(tweet.tweetId)}
+          <span class="tweet-arrow">↗</span>
+        `;
 
 
-      /* =========================
-         ACCORDION
-      ========================== */
+      const chevron =
+        document.createElement(
+          "span"
+        );
+
+      chevron.className =
+        "reply-chevron";
+
+      chevron.textContent =
+        "⌄";
+
+
+      header.appendChild(
+        priority
+      );
+
+      header.appendChild(
+        account
+      );
+
+      header.appendChild(
+        headerStatus
+      );
+
+      header.appendChild(
+        tweetLink
+      );
+
+      header.appendChild(
+        chevron
+      );
+
+
+      /*
+        Body
+      */
+
+      const body =
+        document.createElement(
+          "div"
+        );
+
+      body.className =
+        "reply-body";
+
+
+      /*
+        Tweet description
+      */
+
+      if (
+        tweet.tweetDesc
+      ) {
+
+        const desc =
+          document.createElement(
+            "div"
+          );
+
+        desc.className =
+          "tweet-description";
+
+        desc.textContent =
+          tweet.tweetDesc;
+
+        body.appendChild(
+          desc
+        );
+
+      }
+
+
+      /*
+        Engagement
+      */
+
+      const engagement =
+        document.createElement(
+          "div"
+        );
+
+      engagement.className =
+        "engagement";
+
+
+      engagement.innerHTML =
+        `
+          <span>♥ ${formatCount(tweet.likes)}</span>
+          <span>↩ ${formatCount(tweet.replies)}</span>
+          <span>↻ ${formatCount(tweet.reposts)}</span>
+        `;
+
+
+      body.appendChild(
+        engagement
+      );
+
+
+      /*
+        Remaining
+      */
+
+      const remaining =
+        document.createElement(
+          "div"
+        );
+
+      remaining.className =
+        "remaining";
+
+      remaining.textContent =
+        "—";
+
+      body.appendChild(
+        remaining
+      );
+
+
+      /*
+        Message
+      */
+
+      const messageBox =
+        document.createElement(
+          "div"
+        );
+
+      messageBox.className =
+        "message-box";
+
+
+      const emptyMessage =
+        document.createElement(
+          "span"
+        );
+
+      emptyMessage.className =
+        "message-empty";
+
+      emptyMessage.textContent =
+        "กด Random เพื่อสุ่ม Reply";
+
+
+      messageBox.appendChild(
+        emptyMessage
+      );
+
+
+      body.appendChild(
+        messageBox
+      );
+
+
+      /*
+        Actions
+      */
+
+      const actions =
+        document.createElement(
+          "div"
+        );
+
+      actions.className =
+        "reply-actions";
+
+
+      const againBtn =
+        document.createElement(
+          "button"
+        );
+
+      againBtn.type =
+        "button";
+
+      againBtn.className =
+        "btn btn-light";
+
+      againBtn.textContent =
+        "↻ Random";
+
+
+      const replyBtn =
+        document.createElement(
+          "button"
+        );
+
+      replyBtn.type =
+        "button";
+
+      replyBtn.className =
+        "btn btn-x hidden";
+
+      replyBtn.textContent =
+        "↗ Reply";
+
+
+      actions.appendChild(
+        againBtn
+      );
+
+      actions.appendChild(
+        replyBtn
+      );
+
+
+      body.appendChild(
+        actions
+      );
+
+
+      card.appendChild(
+        header
+      );
+
+      card.appendChild(
+        body
+      );
+
+
+      /*
+        Card state
+      */
+
+      let selectedMessage =
+        null;
+
+      let isReplied =
+        false;
+
+
+      /*
+        Accordion
+      */
 
       header.addEventListener(
         "click",
-        () => {
-          const willExpand =
-            !card.classList.contains(
-              "expanded"
-            );
+        function (event) {
 
-          if (willExpand) {
-            openReplyCard(card);
-          } else {
-            card.classList.remove(
-              "expanded"
-            );
+          /*
+            Don't toggle when
+            clicking Tweet link.
+          */
 
-            if (activeReplyCard === card) {
-              activeReplyCard = null;
-            }
+          if (
+            event.target.closest(
+              ".tweet-link"
+            )
+          ) {
+            return;
           }
+
+
+          const isOpen =
+            card.classList.contains(
+              "open"
+            );
+
+
+          closeAllReplyCards(
+            card
+          );
+
+
+          if (!isOpen) {
+
+            card.classList.add(
+              "open"
+            );
+
+          }
+
         }
       );
 
 
-      /* =========================
-         RANDOM / AGAIN
-      ========================== */
+      /*
+        Random Reply
+      */
 
-      randomBtn.addEventListener(
+      againBtn.addEventListener(
         "click",
-        async event => {
+        async function (event) {
+
           event.stopPropagation();
 
-          randomBtn.disabled = true;
+          card.classList.add(
+            "open"
+          );
+
 
           try {
-            /*
-             * ถ้ากด Again หลังจาก Reply
-             * ให้ reset สถานะ REPLIED
-             */
-            isReplied = false;
 
-            updateRepliedState();
+            againBtn.disabled =
+              true;
+
+            replyBtn.disabled =
+              true;
+
+
+            /*
+              Again = new random message
+              and clear replied state.
+            */
+
+            isReplied =
+              false;
+
+            updateReplyState(
+              card,
+              headerStatus,
+              replyBtn
+            );
 
 
             const result =
-              await claimRandomReply(
-                tweet.tweetId
+              await claimRandomReplyMessage(
+                tweet
               );
 
 
             if (!result) {
-              selectedMessage = null;
 
-              messageBox.innerHTML = `
-                <span class="message-placeholder">
-                  ข้อความหมดแล้ว
-                </span>
-              `;
+              messageBox.textContent =
+                "ข้อความ Reply ถูกใช้ครบแล้ว";
 
-              replyBtn.hidden = true;
-
-              randomBtn.textContent =
-                "↻ Random";
-
-              remainingEl.textContent =
+              remaining.textContent =
                 "0/0";
 
+              replyBtn.classList.add(
+                "hidden"
+              );
+
               return;
+
             }
 
 
@@ -1709,156 +2377,423 @@
 
 
             messageBox.textContent =
-              selectedMessage.text;
+              result.message.text;
 
 
-            hasRandomized = true;
-
-
-            /*
-             * หลังสุ่มครั้งแรก
-             * Random → Again
-             */
-            randomBtn.textContent =
-              "↻ Again";
-
-
-            /*
-             * มีข้อความแล้ว
-             * จึงแสดง Reply
-             */
-            replyBtn.hidden = false;
-
-
-            remainingEl.textContent =
+            remaining.textContent =
               `${result.remaining}/${result.total}`;
 
 
+            againBtn.textContent =
+              "↻ Again";
+
+
+            replyBtn.classList.remove(
+              "hidden"
+            );
+
+
           } catch (error) {
+
             console.error(error);
 
-            messageBox.innerHTML = `
-              <span class="message-placeholder">
-                สุ่มข้อความไม่สำเร็จ
-              </span>
-            `;
+            showError(
+              error.message ||
+              "สุ่ม Reply ไม่สำเร็จ"
+            );
 
           } finally {
-            randomBtn.disabled = false;
+
+            againBtn.disabled =
+              false;
+
+            replyBtn.disabled =
+              false;
+
           }
+
         }
       );
 
 
-      /* =========================
-         REPLY
-      ========================== */
+      /*
+        Reply to X
+      */
 
       replyBtn.addEventListener(
         "click",
-        event => {
+        function (event) {
+
           event.stopPropagation();
 
-          if (!selectedMessage) {
+
+          if (
+            !selectedMessage
+          ) {
             return;
           }
 
 
-          /*
-           * เปิด X
-           */
-          window.open(
+          const url =
             createReplyUrl(
               tweet.tweetId,
               selectedMessage.text
-            ),
-            "_blank",
-            "noopener"
-          );
+            );
+
+
+          openX(url);
 
 
           /*
-           * หลัง Reply
-           * Card ไม่ยุบ
-           * แต่เปลี่ยนเป็น REPLIED
-           */
-          isReplied = true;
+            Keep card open.
 
-          updateRepliedState();
+            Do NOT collapse after Reply.
+          */
+
+          isReplied =
+            true;
+
+
+          updateReplyState(
+            card,
+            headerStatus,
+            replyBtn
+          );
+
         }
       );
 
 
-      function updateRepliedState() {
-        if (isReplied) {
-          repliedStatus.hidden = false;
+      /*
+        Tweet link
+      */
 
-          headerStatus.textContent =
-            "✓ REPLIED";
+      tweetLink.addEventListener(
+        "click",
+        function (event) {
 
-          card.classList.add(
-            "replied"
-          );
+          event.stopPropagation();
 
-        } else {
-          repliedStatus.hidden = true;
-
-          headerStatus.textContent =
-            "";
-
-          card.classList.remove(
-            "replied"
-          );
         }
-      }
+      );
 
 
       return card;
+
     }
 
 
-    /* =========================================================
-       ACCORDION
-    ========================================================= */
+    /* =====================================================
+       REPLY STATE
+    ===================================================== */
 
-    function openReplyCard(card) {
+    function updateReplyState(
+      card,
+      headerStatus,
+      replyBtn
+    ) {
+
       if (
-        activeReplyCard &&
-        activeReplyCard !== card
+        card.dataset
+          .replied === "true"
       ) {
-        activeReplyCard.classList.remove(
-          "expanded"
+
+        headerStatus.textContent =
+          "✓ REPLIED";
+
+        card.classList.add(
+          "replied"
         );
+
+        /*
+          Hide Reply after clicking it.
+          Again remains available.
+        */
+
+        replyBtn.classList.add(
+          "hidden"
+        );
+
+      } else {
+
+        headerStatus.textContent =
+          "";
+
+        card.classList.remove(
+          "replied"
+        );
+
+        replyBtn.classList.remove(
+          "hidden"
+        );
+
       }
 
-      card.classList.add(
-        "expanded"
-      );
-
-      activeReplyCard = card;
     }
 
 
-    /* =========================================================
-       SUPABASE
-    ========================================================= */
+    /*
+      Helper because updateReplyState
+      receives card but state is stored
+      as dataset.
+    */
+
+    function setReplyState(
+      card,
+      replied
+    ) {
+
+      card.dataset.replied =
+        replied
+          ? "true"
+          : "false";
+
+    }
+
+
+    /* =====================================================
+       REPLY CLAIM
+    ===================================================== */
+
+    async function claimRandomReplyMessage(
+      tweet
+    ) {
+
+      const sheetName =
+        `R_${tweet.tweetId}`;
+
+
+      const rows =
+        await loadSheet(
+          sheetName
+        );
+
+
+      const messages =
+        rows.filter(
+          row => {
+
+            const id =
+              String(
+                row.message_id || ""
+              ).trim();
+
+            const text =
+              String(
+                row.text || ""
+              ).trim();
+
+            return (
+              id &&
+              text
+            );
+
+          }
+        );
+
+
+      if (!messages.length) {
+
+        throw new Error(
+          `ไม่พบข้อความใน ${sheetName}`
+        );
+
+      }
+
+
+      const shuffled =
+        shuffle([
+          ...messages
+        ]);
+
+
+      for (
+        const message of shuffled
+      ) {
+
+        const claimed =
+          await claimReply(
+            tweet.tweetId,
+            message.message_id
+          );
+
+
+        if (claimed) {
+
+          const usage =
+            await getReplyUsage(
+              tweet.tweetId
+            );
+
+
+          return {
+            message,
+
+            total:
+              messages.length,
+
+            remaining:
+              Math.max(
+                0,
+                messages.length -
+                usage
+              )
+          };
+
+        }
+
+      }
+
+
+      return null;
+
+    }
+
+
+    async function claimReply(
+      tweetId,
+      messageId
+    ) {
+
+      const response =
+        await supabaseFetch(
+          "/rest/v1/rpc/claim_reply_message",
+          {
+            method: "POST",
+
+            body: JSON.stringify({
+              p_tweet_id:
+                String(tweetId),
+
+              p_message_id:
+                String(messageId)
+            })
+          }
+        );
+
+
+      if (
+        typeof response ===
+        "boolean"
+      ) {
+
+        return response;
+
+      }
+
+
+      if (
+        Array.isArray(response)
+      ) {
+
+        return response[0] === true;
+
+      }
+
+
+      return false;
+
+    }
+
+
+    async function getReplyUsage(
+      tweetId
+    ) {
+
+      const response =
+        await supabaseFetch(
+          "/rest/v1/rpc/get_reply_usage",
+          {
+            method: "POST",
+
+            body: JSON.stringify({
+              p_tweet_id:
+                String(tweetId)
+            })
+          }
+        );
+
+
+      return Number(response) || 0;
+
+    }
+
+
+    /* =====================================================
+       FIX REPLY STATE HANDLING
+    ===================================================== */
+
+    /*
+      Override event behavior so
+      Reply -> ✓ REPLIED
+      Again -> clear state
+    */
+
+    function updateReplyState(
+      card,
+      headerStatus,
+      replyBtn
+    ) {
+
+      const replied =
+        card.dataset.replied ===
+        "true";
+
+
+      if (replied) {
+
+        headerStatus.textContent =
+          "✓ REPLIED";
+
+        card.classList.add(
+          "replied"
+        );
+
+        replyBtn.classList.add(
+          "hidden"
+        );
+
+      } else {
+
+        headerStatus.textContent =
+          "";
+
+        card.classList.remove(
+          "replied"
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SUPABASE FETCH
+    ===================================================== */
 
     async function supabaseFetch(
       path,
       options = {}
     ) {
+
       const response =
         await fetch(
-          `${SUPABASE_URL}${path}`,
+          SUPABASE_URL +
+          path,
           {
             ...options,
 
             headers: {
-              apikey: SUPABASE_KEY,
-              Authorization:
+              "apikey":
+                SUPABASE_KEY,
+
+              "Authorization":
                 `Bearer ${SUPABASE_KEY}`,
 
               "Content-Type":
+                "application/json",
+
+              "Accept":
                 "application/json",
 
               ...(options.headers || {})
@@ -1868,398 +2803,159 @@
 
 
       if (!response.ok) {
+
         const text =
           await response.text();
 
         throw new Error(
-          `Supabase ${response.status}: ${text}`
+          `Supabase error ${response.status}: ${text}`
         );
+
       }
 
 
-      const contentType =
-        response.headers.get(
-          "content-type"
-        ) || "";
+      const text =
+        await response.text();
 
 
-      if (
-        contentType.includes(
-          "application/json"
-        )
-      ) {
-        return response.json();
+      if (!text) {
+        return null;
       }
 
 
-      return null;
+      try {
+
+        return JSON.parse(text);
+
+      } catch {
+
+        return text;
+
+      }
+
     }
 
 
-    /* =========================================================
-       USED POST
-    ========================================================= */
+    /* =====================================================
+       X URL
+    ===================================================== */
 
-    async function getUsedPostMessageIds(
-      topic
+    function createPostUrl(
+      text
     ) {
-      const data =
-        await supabaseFetch(
-          "/rest/v1/used_post_messages_v2" +
-          "?select=message_id" +
-          `&topic=eq.${encodeURIComponent(topic)}`
-        );
 
-      return new Set(
-        (data || []).map(
-          row =>
-            String(row.message_id)
-        )
+      return (
+        "https://twitter.com/intent/tweet" +
+        "?text=" +
+        encodeURIComponent(text)
       );
+
     }
 
 
-    /* =========================================================
-       USED REPLY
-    ========================================================= */
-
-    async function getUsedReplyMessageIds(
-      tweetId
-    ) {
-      const data =
-        await supabaseFetch(
-          "/rest/v1/used_reply_messages_v2" +
-          "?select=message_id" +
-          `&tweet_id=eq.${encodeURIComponent(tweetId)}`
-        );
-
-      return new Set(
-        (data || []).map(
-          row =>
-            String(row.message_id)
-        )
-      );
-    }
-
-
-    /* =========================================================
-       CLAIM POST
-    ========================================================= */
-
-    async function claimPostMessage(
-      topic,
-      messageId
-    ) {
-      const result =
-        await supabaseFetch(
-          "/rest/v1/rpc/claim_post_message_v2",
-          {
-            method: "POST",
-
-            body: JSON.stringify({
-              p_topic: topic,
-              p_message_id:
-                messageId
-            })
-          }
-        );
-
-      return result === true;
-    }
-
-
-    /* =========================================================
-       CLAIM REPLY
-    ========================================================= */
-
-    async function claimReplyMessage(
+    function createReplyUrl(
       tweetId,
-      messageId
+      text
     ) {
-      const result =
-        await supabaseFetch(
-          "/rest/v1/rpc/claim_reply_message_v2",
-          {
-            method: "POST",
 
-            body: JSON.stringify({
-              p_tweet_id: tweetId,
-              p_message_id:
-                messageId
-            })
-          }
-        );
+      return (
+        "https://x.com/intent/tweet" +
+        "?in_reply_to=" +
+        encodeURIComponent(tweetId) +
+        "&text=" +
+        encodeURIComponent(text)
+      );
 
-      return result === true;
     }
 
 
-    /* =========================================================
-       RANDOM POST
-    ========================================================= */
-
-    async function claimRandomPost(
-      topic
-    ) {
-      const rows =
-        await loadChildSheet(
-          `P_${topic}`
-        );
-
-
-      const messages =
-        rows.filter(row => {
-          const id =
-            String(
-              row.message_id || ""
-            ).trim();
-
-          const text =
-            String(
-              row.text || ""
-            ).trim();
-
-          return id && text;
-        });
-
-
-      if (!messages.length) {
-        return null;
-      }
-
-
-      const usedIds =
-        await getUsedPostMessageIds(
-          topic
-        );
-
-
-      const available =
-        messages.filter(
-          row =>
-            !usedIds.has(
-              String(row.message_id)
-            )
-        );
-
-
-      if (!available.length) {
-        return null;
-      }
-
-
-      shuffleArray(available);
-
-
-      for (const row of available) {
-        const messageId =
-          String(
-            row.message_id
-          ).trim();
-
-
-        const claimed =
-          await claimPostMessage(
-            topic,
-            messageId
-          );
-
-
-        if (claimed) {
-          const remaining =
-            Math.max(
-              0,
-              available.length - 1
-            );
-
-          return {
-            message: {
-              messageId,
-              text:
-                String(
-                  row.text || ""
-                ).trim()
-            },
-
-            remaining,
-
-            total: messages.length
-          };
-        }
-      }
-
-
-      /*
-       * ถ้ามีคนอื่น claim ไปพอดี
-       * ให้ลองใหม่อีกครั้ง
-       */
-      return claimRandomPost(topic);
-    }
-
-
-    /* =========================================================
-       RANDOM REPLY
-    ========================================================= */
-
-    async function claimRandomReply(
+    function getTweetUrl(
       tweetId
     ) {
-      const rows =
-        await loadChildSheet(
-          `R_${tweetId}`
-        );
 
-
-      const messages =
-        rows.filter(row => {
-          const id =
-            String(
-              row.message_id || ""
-            ).trim();
-
-          const text =
-            String(
-              row.text || ""
-            ).trim();
-
-          return id && text;
-        });
-
-
-      if (!messages.length) {
-        return null;
+      if (!tweetId) {
+        return "#";
       }
 
-
-      const usedIds =
-        await getUsedReplyMessageIds(
-          tweetId
-        );
-
-
-      const available =
-        messages.filter(
-          row =>
-            !usedIds.has(
-              String(row.message_id)
-            )
-        );
-
-
-      if (!available.length) {
-        return null;
-      }
-
-
-      shuffleArray(available);
-
-
-      for (const row of available) {
-        const messageId =
-          String(
-            row.message_id
-          ).trim();
-
-
-        const claimed =
-          await claimReplyMessage(
-            tweetId,
-            messageId
-          );
-
-
-        if (claimed) {
-          const remaining =
-            Math.max(
-              0,
-              available.length - 1
-            );
-
-
-          return {
-            message: {
-              messageId,
-
-              text:
-                String(
-                  row.text || ""
-                ).trim()
-            },
-
-            remaining,
-
-            total: messages.length
-          };
-        }
-      }
-
-
-      /*
-       * ถ้ามี user อื่น claim
-       * ไปก่อนในจังหวะเดียวกัน
-       */
-      return claimRandomReply(
-        tweetId
+      return (
+        "https://x.com/i/status/" +
+        encodeURIComponent(tweetId)
       );
+
     }
 
 
-    /* =========================================================
+    function openX(url) {
+
+      window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+    }
+
+
+    /* =====================================================
        HELPERS
-    ========================================================= */
+    ===================================================== */
 
-    function shuffleArray(array) {
-      for (
-        let i = array.length - 1;
-        i > 0;
-        i--
-      ) {
-        const j =
-          Math.floor(
-            Math.random() * (i + 1)
-          );
+    function isValidTweetId(
+      value
+    ) {
 
-        [
-          array[i],
-          array[j]
-        ] = [
-          array[j],
-          array[i]
-        ];
-      }
+      return /^\d+$/.test(
+        String(value || "").trim()
+      );
 
-      return array;
     }
 
 
-    function normalizePriority(value) {
-      const priority =
+    function maskTweetId(
+      tweetId
+    ) {
+
+      const id =
         String(
-          value || "NORMAL"
-        )
-          .trim()
-          .toUpperCase();
+          tweetId || ""
+        ).trim();
 
 
-      if (
-        ["HOT", "HIGH", "NORMAL"]
-          .includes(priority)
-      ) {
-        return priority;
+      if (!id) {
+        return "••••••••";
       }
 
 
-      return "NORMAL";
+      if (id.length <= 4) {
+
+        return (
+          "••••" +
+          id
+        );
+
+      }
+
+
+      return (
+        "••••••••" +
+        id.slice(-4)
+      );
+
     }
 
 
-    function formatCount(value) {
+    function formatCount(
+      value
+    ) {
+
       if (
         value === null ||
         value === undefined ||
         String(value).trim() === ""
       ) {
+
         return "—";
+
       }
 
 
@@ -2271,101 +2967,295 @@
         );
 
 
-      if (!Number.isFinite(number)) {
+      if (
+        !Number.isFinite(number)
+      ) {
+
         return String(value);
+
       }
 
 
-      if (number >= 1_000_000) {
+      if (
+        number >= 1_000_000
+      ) {
+
         return (
-          `${(number / 1_000_000)
+          (number / 1_000_000)
             .toFixed(1)
-            .replace(".0", "")}M`
+            .replace(".0", "") +
+          "M"
         );
+
       }
 
 
-      if (number >= 1_000) {
+      if (
+        number >= 1_000
+      ) {
+
         return (
-          `${(number / 1_000)
+          (number / 1_000)
             .toFixed(1)
-            .replace(".0", "")}K`
+            .replace(".0", "") +
+          "K"
         );
+
       }
 
 
       return String(number);
+
     }
 
 
-    function maskTweetId(tweetId) {
-      const id =
-        String(tweetId || "").trim();
+    function normalizePriority(
+      value
+    ) {
+
+      const priority =
+        String(
+          value || "NORMAL"
+        )
+          .trim()
+          .toUpperCase();
 
 
-      if (!id) {
-        return "••••••••";
+      if (
+        [
+          "HOT",
+          "HIGH",
+          "NORMAL"
+        ].includes(priority)
+      ) {
+
+        return priority;
+
       }
 
 
-      if (id.length <= 4) {
-        return `••••${id}`;
-      }
+      return "NORMAL";
 
-
-      return `••••••••${id.slice(-4)}`;
     }
 
 
-    function getTweetUrl(tweetId) {
-      if (!tweetId) {
-        return "#";
-      }
-
-      return `https://x.com/i/status/${encodeURIComponent(tweetId)}`;
-    }
-
-
-    /* =========================================================
-       X WEB INTENTS
-    ========================================================= */
-
-    function createPostUrl(text) {
-      return (
-        "https://twitter.com/intent/tweet" +
-        "?text=" +
-        encodeURIComponent(text)
-      );
-    }
-
-
-    function createReplyUrl(
-      tweetId,
+    function formatTopicDescription(
       text
     ) {
-      return (
-        "https://x.com/intent/tweet" +
-        "?in_reply_to=" +
-        encodeURIComponent(tweetId) +
-        "&text=" +
-        encodeURIComponent(text)
-      );
+
+      return escapeHtml(
+        String(
+          text || ""
+        ).trim()
+      )
+        .replace(
+          /&lt;br\s*\/?&gt;/gi,
+          "<br>"
+        )
+        .replace(
+          /\r?\n/g,
+          "<br>"
+        );
+
     }
 
 
-    /* =========================================================
-       ESCAPE HTML
-    ========================================================= */
+    function escapeHtml(
+      text
+    ) {
 
-    function escapeHtml(value) {
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      return String(text)
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    function shuffle(
+      array
+    ) {
+
+      for (
+        let i = array.length - 1;
+        i > 0;
+        i--
+      ) {
+
+        const j =
+          Math.floor(
+            Math.random() *
+            (i + 1)
+          );
+
+
+        [
+          array[i],
+          array[j]
+        ] = [
+          array[j],
+          array[i]
+        ];
+
+      }
+
+      return array;
+
+    }
+
+
+    /* =====================================================
+       ACCORDION
+    ===================================================== */
+
+    function closeAllReplyCards(
+      exceptCard = null
+    ) {
+
+      document
+        .querySelectorAll(
+          ".reply-card.open"
+        )
+        .forEach(
+          card => {
+
+            if (
+              card !== exceptCard
+            ) {
+
+              card.classList.remove(
+                "open"
+              );
+
+            }
+
+          }
+        );
+
+    }
+
+
+    /* =====================================================
+       RESET POST
+    ===================================================== */
+
+    function resetPost() {
+
+      postSelectedMessage =
+        null;
+
+
+      postMessage.innerHTML =
+        `
+          <span class="message-empty">
+            กด Random เพื่อสุ่มข้อความ
+          </span>
+        `;
+
+
+      postRemaining.textContent =
+        "—";
+
+
+      postRandomBtn.classList.remove(
+        "hidden"
+      );
+
+      postAgainBtn.classList.add(
+        "hidden"
+      );
+
+      postBtn.classList.add(
+        "hidden"
+      );
+
+    }
+
+
+    function disablePostButtons() {
+
+      postRandomBtn.disabled =
+        true;
+
+      postAgainBtn.disabled =
+        true;
+
+      postBtn.disabled =
+        true;
+
+    }
+
+
+    function enablePostButtons() {
+
+      postRandomBtn.disabled =
+        false;
+
+      postAgainBtn.disabled =
+        false;
+
+      postBtn.disabled =
+        false;
+
+    }
+
+
+    /* =====================================================
+       LOADING
+    ===================================================== */
+
+    function showLoading() {
+
+      replyList.innerHTML =
+        `
+          <div class="loading">
+            Loading...
+          </div>
+        `;
+
+    }
+
+
+    /* =====================================================
+       ERROR
+    ===================================================== */
+
+    function showError(
+      message
+    ) {
+
+      errorBox.textContent =
+        String(message || "Unknown error");
+
+      errorBox.classList.remove(
+        "hidden"
+      );
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
     }
 
   </script>
+
 </body>
 </html>
